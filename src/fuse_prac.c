@@ -9,11 +9,28 @@ static struct options {
     int show_help;
 } options;
 
-static const struct fuse_opt option_spec[] = {
+// Define marco that returns an array
+#define OPTION(t, p)    \
+    { t, offsetof(struct options, p), 1 }
 
+// fuse_opt match template
+static const struct fuse_opt option_spec[] = {
+    OPTION("--name=%s", filename),
+	OPTION("--contents=%s", contents),
+	OPTION("-h", show_help),
+	OPTION("--help", show_help),
+	FUSE_OPT_END
 };
 
-
+static void show_help(const char * program_name)
+{
+    printf("usage: ");
+    printf("options:: \n"
+           ""
+           ""
+           ""
+           "\n");
+}
 
 int main(int argc, char* argv[])
 {
@@ -25,6 +42,15 @@ int main(int argc, char* argv[])
     if (fuse_opt_parse(&args, &options, option_spec, NULL) == -1) 
         // Error
         return 1;
+    
+    if (options.show_help) {
+        show_help(argv[0]);
+        args.argv[0][0] = '\0';
+    }
+
+    // return value
+    int ret
+    ret = fuse_main();
 
 }
 
