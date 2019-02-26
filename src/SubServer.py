@@ -15,7 +15,6 @@ class SubService(rpyc.Service):
         print("subserver terminated")
 
     class exposed_Subserver():
-        chunks = {}
 
         def exposed_write(self, block_id, data, numSubs):
             """write data to the block in each subserver"""
