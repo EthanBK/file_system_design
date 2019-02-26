@@ -23,7 +23,7 @@ def set_config():
 # Main server service
 class MainServerService(rpyc.Service):
     # expose main service to client
-    class exposed_Master:
+    class exposed_MainServer:
         block_size = 0             # size of each block
         replication_factor = 0     # number of replicates of each block
         subserver = {}             # unique id for each subserver
@@ -43,7 +43,7 @@ class MainServerService(rpyc.Service):
                 # get id for each block
                 block_id = uuid.uuid1()
                 # get id for target sub server 
-                subserver_id = random.sample(self.subserver, num_block)
+                subserver_id = random.sample(self.__class__.subserver, num_block)
                 # add (block id, sub server id) as a tuple in <blocks>
                 tpl = (block_id, subserver_id)
                 blocks.append(tpl)

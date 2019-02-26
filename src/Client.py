@@ -4,16 +4,33 @@ import os
 import argparse
 
 
-def put(source, target):
+"""
+Funciton: put(service, source, target)
+Parameters:
+    <service>:  Main server service object
+    <source>:   File source
+    <target>:   Target location of mount
+Return:
+    None
+"""
+def put(service, source, target):
     print("Calling put operation...")
     print("sSurce: ", source)
     print("Target: ", target)
     file_size = os.path.getsize(source)
+    
 
 
-    
-    
-def get(source, target):
+"""
+Funciton: put(service, source, target)
+Parameters:
+    <service>:  Main server service object
+    <source>:   File source
+    <target>:   Target location of mount
+Return:
+    None
+"""
+def get(service, source, target):
     print("Calling get operation...")
     print("sSurce: ", source)
     print("Target: ", target)
@@ -30,13 +47,14 @@ if __name__ == "__main__":
     # Build connection\
     port = args.port
     con = rpyc.connect("localhost", port=port)
+    main_server_service_exposed = con.root.MainServer()
 
 
     if args.operation == 'put':
-        put(args.source, args.target)
+        put(main_server_service_exposed, args.source, args.target)
 
     if args.operation == 'get':
-        get(args.source, args.target)
+        get(main_server_service_exposed, args.source, args.target)
         
 
 
