@@ -3,10 +3,10 @@ import sys
 import os
 import argparse
 
+
 def put(source, target):
     print(source, target)
     
-
 
 if __name__ == "__main__":
     # Parse in arguments
@@ -19,11 +19,11 @@ if __name__ == "__main__":
     # Build connection
     con = rpyc.connect("localhost", port=2220)
 
-
     if args.operation == 'put':
         put(args.source, args.target)
 
     if args.operation == 'get':
+        pass
         
 
 
