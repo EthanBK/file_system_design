@@ -22,43 +22,41 @@ def set_config():
 
 # Main server service
 class MainServerService(rpyc.Service):
-    def __init__(self):    
-        self.block_size = 0             # size of each block
-        self.replication_factor = 0     # number of replicates of each block
-        self.subserver = {}             # unique id for each subserver
-        self.file_table = {}            # 
-
     # expose main service to client
-    class ExopsedMain:
+    class exposed_Master:
+        block_size = 0             # size of each block
+        replication_factor = 0     # number of replicates of each block
+        subserver = {}             # unique id for each subserver
+        file_table = {}            # 
 
         def exposed_sum(self, a, b):
             return a+b
 
-    # Return the number of block needed for storing file of size <size>
-    def get_num_blocks(self, size):
-        return int(math.ceil((float(size) / self.block_size)))
+        # Return the number of block needed for storing file of size <size>
+        def get_num_blocks(self, size):
+            return int(math.ceil((float(size) / self.__class__.block_size)))
 
-    # Return the (block id, subserver id) array of current target.
-    def get_block_id(self, target, num_block):
-        blocks = []
-        for _ in range(num_block):
-            # get id for each block
-            block_id = uuid.uuid1()
-            # get id for target sub server 
-            subserver_id = random.sample(self.subserver, num_block)
-            # add (block id, sub server id) as a tuple in <blocks>
-            tpl = (block_id, subserver_id)
-            blocks.append(tpl)
-            # add tuple to file table
-            # Todo: What is target?
-            self.file_table[target].append(tpl)
-        return blocks
+        # Return the (block id, subserver id) array of current target.
+        def get_block_id(self, target, num_block):
+            blocks = []
+            for _ in range(num_block):
+                # get id for each block
+                block_id = uuid.uuid1()
+                # get id for target sub server 
+                subserver_id = random.sample(self.subserver, num_block)
+                # add (block id, sub server id) as a tuple in <blocks>
+                tpl = (block_id, subserver_id)
+                blocks.append(tpl)
+                # add tuple to file table
+                # Todo: What is target?
+                self.__class__.file_table[target].append(tpl)
+            return blocks
 
 
 if __name__ == "__main__":
     set_config()
     port = 2220
-    s = rpyc.utils.server.ThreadedServer(MainServerService, port = port)
+    s = rpyc.utils.server.ThreadedServer(MainServerService, port=port)
     
     print("IP: localhost")
     print("Port: ", port)
