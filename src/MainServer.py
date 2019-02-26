@@ -26,7 +26,7 @@ class MainServerService(rpyc.Service):
     class exposed_MainServer:
         block_size = 10             # size of each block
         replication_factor = 2     # number of replicates of each block
-        subserver = {8888, 8889}             # unique id for each subserver
+        subserver = {2510, 2511}             # unique id for each subserver
         file_table = {}            # {file_name: block_id-s} dictionary
 
         # Return file table entry corresponding to <target>
@@ -73,7 +73,7 @@ class MainServerService(rpyc.Service):
                 block_id = uuid.uuid1()
                 # get id for target sub server 
                 #subserver_ids = random.sample(self.__class__.subserver, self.__class__.replication_factor)
-                subserver_ids = (8888, 8889)
+                subserver_ids = (2510, 2511)
                 # add (block id, sub server id) as a tuple in <blocks>
                 tpl = (block_id, subserver_ids)
                 block_table.append(tpl)
