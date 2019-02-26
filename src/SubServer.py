@@ -8,17 +8,17 @@ FILE_DIR = "/tmp/subserver/"
 
 class SubService(rpyc.Service):
 
-    def on_connect(self, conn):
-        print("subserver running...")
+    #def on_connect(self, conn):
+     #   print("subserver connected")
 
-    def on_disconnect(self, conn):
-        print("subserver terminated")
+    #def on_disconnect(self, conn):
+     #   print("subserver disconnected")
 
     class exposed_Subserver():
 
-        def exposed_write(self, block_id, data, numSubs):
+        def exposed_write(self, block_id, data):
             """write data to the block in each subserver"""
-            f = open(FILE_DIR + block_id, "x")
+            f = open(FILE_DIR + str(block_id), "w")
             f.write(data)
 
         def exposed_read(self, block_id):
@@ -43,4 +43,8 @@ if __name__ == "__main__":
         
     subserver_port = input("Input the port for the Subserver: ")
     sub  = ThreadedServer(SubService(), port = int(subserver_port))
+
+    print("IP: localhost")
+    print("Port: ", subserver_port)
+    print("Starting sub server service...")
     sub.start()

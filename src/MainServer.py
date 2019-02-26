@@ -24,14 +24,16 @@ def set_config():
 class MainServerService(rpyc.Service):
     # expose main service to client
     class exposed_MainServer:
-        block_size = 0             # size of each block
-        replication_factor = 0     # number of replicates of each block
-        subserver = {}             # unique id for each subserver
+        block_size = 10             # size of each block
+        replication_factor = 2     # number of replicates of each block
+        subserver = {8888, 8889}             # unique id for each subserver
         file_table = {}            # {file_name: block_id-s} dictionary
 
         # Return file table entry corresponding to <target>
         def exposed_get_file_table(self, target):
-            return self.__class__.file_table[target]
+            if target in self.__class__.file_table:
+                return self.__class__.file_table[target]
+            return None
 
         def exposed_get_sub_server(self, ids):
             return [self.__class__.subserver[_] for _ in ids]
@@ -51,7 +53,14 @@ class MainServerService(rpyc.Service):
         # Return the number of block needed for storing file of size <size>
         def get_num_blocks(self, size):
             return int(math.ceil((float(size) / self.__class__.block_size)))
-        
+
+        def exposed_delete_file(self, target):
+            del self.__class__.file_table[target]
+
+        def exposed_rename_file(self, target, newname):
+            self.__class__.file_table[newname] = self.__class__.file_table.pop(target)
+
+
         def exposed_get_block_size(self):
             return self.__class__.block_size
 
@@ -59,13 +68,14 @@ class MainServerService(rpyc.Service):
         # Return the (block id, subserver id) array of current target.
         def get_blocks_table(self, target, num_block):
             block_table = []
-            for _ in range(num_block):
+            for b in range(num_block):
                 # get id for each block
                 block_id = uuid.uuid1()
                 # get id for target sub server 
-                subserver_id = random.sample(self.__class__.subserver, num_block)
+                #subserver_ids = random.sample(self.__class__.subserver, self.__class__.replication_factor)
+                subserver_ids = (8888, 8889)
                 # add (block id, sub server id) as a tuple in <blocks>
-                tpl = (block_id, subserver_id)
+                tpl = (block_id, subserver_ids)
                 block_table.append(tpl)
                 # add tuple to file table
                 # Todo: What is target?
