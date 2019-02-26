@@ -7,10 +7,6 @@ import math
 import uuid
 import random
 
-
-
-
-
 def set_config():
     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
     cf = os.path.join(THIS_FOLDER, 'configure.conf')
@@ -22,8 +18,9 @@ def set_config():
         int(config.get('mainServer', 'replication_factor'))
     # print(block_size, replication_factor)
     
-
-
+"""
+Main server services
+"""
 class MainServerService(rpyc.Service):
     def __init__(self):    
         self.block_size = 0             # size of each block
@@ -31,16 +28,26 @@ class MainServerService(rpyc.Service):
         self.subserver = {}             # unique id for each subserver
         self.file_table = {}            # 
 
-    def exposed_sum(self,a,b):
-        return a+b
+
+    """
+    Expose main server services to client
+    """
+    class Exopsed_main():
+
+        def exposed_sum(self,a,b):
+            return a+b
     
+
+
     # Return the number of block needed for storing file of size <size>
     def get_num_blocks(self, size):
         return int(math.ceil()(float(size) / self.block_size))
 
+
+    # Return the (block id, subserver id) array of current target.
     def get_block_id(self, target, num_block):
         blocks = []
-        for i in range(num_block):
+        for _ in range(num_block):
             # get id for each block
             block_id = uuid.uuid1()
             # get id for target sub server 
@@ -51,13 +58,7 @@ class MainServerService(rpyc.Service):
             # add tuple to file table
             # Todo: What is target?
             self.file_table[target].append(tpl)
-
-
-
-
-
-
-
+        return blocks
 
 
 if __name__ == "__main__":
