@@ -29,6 +29,8 @@ class MainServerService(rpyc.Service):
         subserver = {}             # unique id for each subserver
         file_table = {}            # 
 
+        def exposed_get_sub_server(self, ids):
+            return [self.__class__.subserver[_] for _ in ids]
 
         # Create file table entry (empty) for target file based on srouce file size
         # Return:

@@ -4,15 +4,19 @@ import os
 import argparse
 
 
-"""
-Funciton: put(service, source, target)
-Parameters:
-    <service>:  Main server service object
-    <source>:   Source file path
-    <target>:   Target location of mount
-Return:
-    None
-"""
+
+# Function: send_to_subserver(block_id, data, sub_server)
+def send_to_subserver(block_id, data, sub_server):
+    pass
+
+
+# Funciton: put(service, source, target)
+# Parameters:
+#     <service>:  Main server service object
+#     <source>:   Source file path
+#     <target>:   Target location of mount
+# Return:
+#     None
 def put(service, source, target):
     print("Calling put operation...")
     print("sSurce: ", source)
@@ -26,20 +30,18 @@ def put(service, source, target):
         for b in blocks: 
             data = os.read(fp, service.get_block_size)
             block_uuid = b[0]
-            # get sub server id
-            sub_servers_id = 
+            # get sub server object
+            sub_servers = service.get_sub_server(b[1])
             # send to sub server
-
-
-"""
-Funciton: put(service, source, target)
-Parameters:
-    <service>:  Main server service object
-    <source>:   File source
-    <target>:   Target location of mount
-Return:
-    None
-"""
+            send_to_subserver(block_uuid, data, sub_servers)
+    
+# Funciton: put(service, source, target)
+# Parameters:
+#     <service>:  Main server service object
+#     <source>:   File source
+#     <target>:   Target location of mount
+# Return:
+#     None
 def get(service, source, target):
     print("Calling get operation...")
     print("sSurce: ", source)
