@@ -6,6 +6,12 @@ import argparse
 
 
 # Function: send_to_subserver(block_id, data, sub_server)
+# Parameters:
+#     <block_id>:  Main server service object
+#     <source>:   Source file path
+#     <target>:   Target location of mount
+# Return:
+#     None
 def send_to_subserver(block_id, data, sub_server):
     pass
 
@@ -42,10 +48,15 @@ def put(service, source, target):
 #     <target>:   Target location of mount
 # Return:
 #     None
-def get(service, source, target):
+def get(service, target):
     print("Calling get operation...")
-    print("sSurce: ", source)
     print("Target: ", target)
+    blocks = service.get_file_table(target)
+
+    for b in blocks:
+
+
+
 
 if __name__ == "__main__":
     # Parse in arguments

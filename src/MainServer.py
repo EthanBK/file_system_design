@@ -27,22 +27,26 @@ class MainServerService(rpyc.Service):
         block_size = 0             # size of each block
         replication_factor = 0     # number of replicates of each block
         subserver = {}             # unique id for each subserver
-        file_table = {}            # 
+        file_table = {}            # {file_name: block_id-s} dictionary
+
+        # Return file table entry corresponding to <target>
+        def exposed_get_file_table(self, target):
+            return self.__class__.file_table[target]
 
         def exposed_get_sub_server(self, ids):
             return [self.__class__.subserver[_] for _ in ids]
 
         # Create file table entry (empty) for target file based on srouce file size
         # Return:
-        #   blocks -> (block id, sub server id) tuple array
+        #   block_table -> (block id, sub server id) tuple array
         #   
         def exposed_creat_file_table_entry(self, target, src_size):
             if target not in self.__class__.file_table:
                 # Create entry for thix file 
                 self.__class__.file_table[target] = []
             num_block = self.get_num_blocks(src_size)
-            blocks = self.get_blocks(target, num_block)     
-            return blocks
+            block_table = self.get_blocks_table(target, num_block)     
+            return block_table
 
         # Return the number of block needed for storing file of size <size>
         def get_num_blocks(self, size):
@@ -53,8 +57,8 @@ class MainServerService(rpyc.Service):
 
         # Assign a number of block with random sub servers
         # Return the (block id, subserver id) array of current target.
-        def get_blocks(self, target, num_block):
-            blocks = []
+        def get_blocks_table(self, target, num_block):
+            block_table = []
             for _ in range(num_block):
                 # get id for each block
                 block_id = uuid.uuid1()
@@ -62,11 +66,11 @@ class MainServerService(rpyc.Service):
                 subserver_id = random.sample(self.__class__.subserver, num_block)
                 # add (block id, sub server id) as a tuple in <blocks>
                 tpl = (block_id, subserver_id)
-                blocks.append(tpl)
+                block_table.append(tpl)
                 # add tuple to file table
                 # Todo: What is target?
                 self.__class__.file_table[target].append(tpl)
-            return blocks
+            return block_table
 
 
 if __name__ == "__main__":
