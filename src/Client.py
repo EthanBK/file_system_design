@@ -54,8 +54,7 @@ def get(service, target):
     blocks = service.get_file_table(target)
 
     for b in blocks:
-
-
+        pass
 
 
 if __name__ == "__main__":
@@ -77,7 +76,7 @@ if __name__ == "__main__":
         put(main_server_service_exposed, args.source, args.target)
 
     if args.operation == 'get':
-        get(main_server_service_exposed, args.source, args.target)
+        get(main_server_service_exposed, args.target)
         
 
 

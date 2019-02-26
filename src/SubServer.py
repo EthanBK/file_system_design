@@ -23,7 +23,7 @@ class SubService(rpyc.Service):
 
         def exposed_read(self, block_id):
             """Return block content"""
-            block_address = File_DIR + str(block_id)
+            block_address = FILE_DIR + str(block_id)
             if not os.path.isfile(block_address):
                 return None
             fname = open(block_address)
