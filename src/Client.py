@@ -5,7 +5,7 @@ import argparse
 
 def put(source, target):
     print(source, target)
-    pass
+    
 
 
 if __name__ == "__main__":
@@ -22,6 +22,9 @@ if __name__ == "__main__":
 
     if args.operation == 'put':
         put(args.source, args.target)
+
+    if args.operation == 'get':
+        
 
 
 
