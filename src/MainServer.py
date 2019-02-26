@@ -29,15 +29,29 @@ class MainServerService(rpyc.Service):
         subserver = {}             # unique id for each subserver
         file_table = {}            # 
 
-        def exposed_sum(self, a, b):
-            return a+b
+
+        # Create file table entry (empty) for target file based on srouce file size
+        # Return:
+        #   blocks -> (block id, sub server id) tuple array
+        #   
+        def exposed_creat_file_table_entry(self, target, src_size):
+            if target not in self.__class__.file_table:
+                # Create entry for thix file 
+                self.__class__.file_table[target] = []
+            num_block = self.get_num_blocks(src_size)
+            blocks = self.get_blocks(target, num_block)     
+            return blocks
 
         # Return the number of block needed for storing file of size <size>
         def get_num_blocks(self, size):
             return int(math.ceil((float(size) / self.__class__.block_size)))
+        
+        def exposed_get_block_size(self):
+            return self.__class__.block_size
 
+        # Assign a number of block with random sub servers
         # Return the (block id, subserver id) array of current target.
-        def get_block_id(self, target, num_block):
+        def get_blocks(self, target, num_block):
             blocks = []
             for _ in range(num_block):
                 # get id for each block

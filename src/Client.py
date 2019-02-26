@@ -8,7 +8,7 @@ import argparse
 Funciton: put(service, source, target)
 Parameters:
     <service>:  Main server service object
-    <source>:   File source
+    <source>:   Source file path
     <target>:   Target location of mount
 Return:
     None
@@ -17,8 +17,18 @@ def put(service, source, target):
     print("Calling put operation...")
     print("sSurce: ", source)
     print("Target: ", target)
+    # Get file size
     file_size = os.path.getsize(source)
-    
+    # Get block id
+    blocks = service.creat_file_table_entry(target, file_size)
+    # Split data and put into blocks
+    with open(source) as fp:
+        for b in blocks: 
+            data = os.read(fp, service.get_block_size)
+            block_uuid = b[0]
+            # get sub server id
+            sub_servers_id = 
+            # send to sub server
 
 
 """
