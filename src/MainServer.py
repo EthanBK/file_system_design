@@ -7,9 +7,10 @@ import math
 import uuid
 import random
 
+
 def set_config():
-    THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-    cf = os.path.join(THIS_FOLDER, 'configure.conf')
+    cur_folder = os.path.dirname(os.path.abspath(__file__))
+    cf = os.path.join(cur_folder, 'configure.conf')
     config = configparser.ConfigParser()
     config.read(cf)
     MainServerService.block_size = \
@@ -17,10 +18,9 @@ def set_config():
     MainServerService.replication_factor = \
         int(config.get('mainServer', 'replication_factor'))
     # print(block_size, replication_factor)
-    
-"""
-Main server services
-"""
+
+
+# Main server service
 class MainServerService(rpyc.Service):
     def __init__(self):    
         self.block_size = 0             # size of each block
@@ -28,21 +28,15 @@ class MainServerService(rpyc.Service):
         self.subserver = {}             # unique id for each subserver
         self.file_table = {}            # 
 
+    # expose main service to client
+    class ExopsedMain:
 
-    """
-    Expose main server services to client
-    """
-    class Exopsed_main():
-
-        def exposed_sum(self,a,b):
+        def exposed_sum(self, a, b):
             return a+b
-    
-
 
     # Return the number of block needed for storing file of size <size>
     def get_num_blocks(self, size):
-        return int(math.ceil()(float(size) / self.block_size))
-
+        return int(math.ceil((float(size) / self.block_size)))
 
     # Return the (block id, subserver id) array of current target.
     def get_block_id(self, target, num_block):
@@ -51,9 +45,9 @@ class MainServerService(rpyc.Service):
             # get id for each block
             block_id = uuid.uuid1()
             # get id for target sub server 
-            subserv_id = random.sample(self.subserver, num_block)
-            # add (block id, subserver id) as a tuple in <blocks>
-            tpl = (block_id, subserv_id)
+            subserver_id = random.sample(self.subserver, num_block)
+            # add (block id, sub server id) as a tuple in <blocks>
+            tpl = (block_id, subserver_id)
             blocks.append(tpl)
             # add tuple to file table
             # Todo: What is target?
@@ -72,5 +66,4 @@ if __name__ == "__main__":
     s.start()
     # HOST = socket.gethostbyname(socket.gethostname())
     # print(HOST)
-    # s=ThreadedServer(SBMainServer,port=9487,auto_register=False)
-    # s.start()
+
