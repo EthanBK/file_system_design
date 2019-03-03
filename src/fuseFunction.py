@@ -8,7 +8,6 @@ import errno
 
 from fuse import FUSE, FuseOSError, Operations
 
-
 class Passthrough(Operations):
     def __init__(self, root):
         self.root = root
@@ -96,6 +95,8 @@ class Passthrough(Operations):
     # File methods
     # ============
 
+    self.conn = rpyc.connect(host=self.address, port=self.port)
+    
     def open(self, path, flags):
         full_path = self._full_path(path)
         return os.open(full_path, flags)
@@ -125,3 +126,4 @@ class Passthrough(Operations):
 
     def fsync(self, path, fdatasync, fh):
         return self.flush(path, fh)
+

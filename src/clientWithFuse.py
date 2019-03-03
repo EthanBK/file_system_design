@@ -39,5 +39,5 @@ if __name__ == "__main__":
     k.start()
 
     FUSE(Passthrough(args.real), args.virtual, foreground=True)
-
+    
     k.join()
