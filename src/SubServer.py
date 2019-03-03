@@ -5,12 +5,15 @@ import configparser
 from time import sleep
 import threading
 
-from MainServer import set_config
 from rpyc.utils.server import ThreadedServer
 
-FILE_DIR = "/tmp/subserver/"
+ROOT_DIR = "/tmp/subserver/"
+
+# clean temp file
+
 
 class SubService(rpyc.Service):
+
 
     #def on_connect(self, conn):
      #   print("subserver connected")
@@ -19,15 +22,20 @@ class SubService(rpyc.Service):
      #   print("subserver disconnected")
 
     class exposed_Subserver():
+        def __init__(self, port):
+            self.port = port
+            self.dir = ROOT_DIR + str(self.port) + '/'
+            if not os.path.isdir(self.dir):
+                os.mkdir(self.dir)
 
         def exposed_write(self, block_id, data):
             """write data to the block in subserver"""
-            f = open(FILE_DIR + str(block_id), "w")
+            f = open(self.dir + str(block_id), "w")
             f.write(data)
 
         def exposed_read(self, block_id):
             """Return block content"""
-            block_address = FILE_DIR + str(block_id)
+            block_address = self.dir + str(block_id)
             if not os.path.isfile(block_address):
                 return None
             fname = open(block_address)
@@ -35,15 +43,16 @@ class SubService(rpyc.Service):
 
         def exposed_delete_file(self, block_id):
             """Remove block with block_id"""
-            block_address = FILE_DIR + str(block_id)
+            block_address = self.dir + str(block_id)
             if not os.path.isfile(block_address):
-                return None
+                return "Warning: No such file!"
             os.remove(block_address)
-            return True
+            return 0
+
 
 if __name__ == "__main__":
-    if not os.path.isdir(FILE_DIR):
-        os.mkdir(FILE_DIR)
+    if not os.path.isdir(ROOT_DIR):
+        os.mkdir(ROOT_DIR)
     
     cur_folder = os.path.dirname(os.path.abspath(__file__))
     cf = os.path.join(cur_folder, 'configure.conf')
