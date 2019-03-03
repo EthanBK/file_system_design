@@ -38,7 +38,7 @@ class MainServerService(rpyc.Service):
         def exposed_get_sub_server(self, ids):
             return [self.__class__.subserver[_] for _ in ids]
 
-        # Create file table entry (empty) for target file based on srouce file size
+        # Create file table entry (empty) for target file based on source file sizes
         # Return:
         #   block_table -> (block id, sub server id) tuple array
         #   
