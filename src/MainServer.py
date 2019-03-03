@@ -11,13 +11,15 @@ import random
 def set_config():
     cur_folder = os.path.dirname(os.path.abspath(__file__))
     cf = os.path.join(cur_folder, 'configure.conf')
-    config = configparser.ConfigParser()
-    config.read(cf)
-    MainServerService.block_size = \
-        int(config.get('mainServer', 'block_size'))
-    MainServerService.replication_factor = \
-        int(config.get('mainServer', 'replication_factor'))
+    parser = configparser.ConfigParser()
+    parser.read(cf)
+    MainServerService.exposed_MainServer.block_size = \
+        int(parser.get('mainServer', 'block_size'))
+    MainServerService.exposed_MainServer.replication_factor = \
+        int(parser.get('mainServer', 'replication_factor'))
     # print(block_size, replication_factor)
+    MainServerService.exposed_MainServer.subserver = \
+        [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
 
 
 # Main server service
@@ -26,8 +28,15 @@ class MainServerService(rpyc.Service):
     class exposed_MainServer:
         block_size = 10             # size of each block
         replication_factor = 2     # number of replicates of each block
-        subserver = {2510, 2511}             # unique id for each subserver
-        file_table = {}            # {file_name: block_id-s} dictionary
+        subserver = []             # unique id for each subserver
+        file_table = {}            # {target: [(block_id1, [sub-server1,...]),
+                                   #           (block_id1, [sub-server1,...]),
+                                   #           ......                       ]                 
+                                   # }
+        # block_table =                       [(block_id1, [sub-server1,...]),
+                                   #           (block_id1, [sub-server1,...]),
+                                   #           ......                       ] 
+
 
         # Return file table entry corresponding to <target>
         def exposed_get_file_table(self, target):
@@ -41,14 +50,15 @@ class MainServerService(rpyc.Service):
         # Create file table entry (empty) for target file based on source file sizes
         # Return:
         #   block_table -> (block id, sub server id) tuple array
-        #   
         def exposed_creat_file_table_entry(self, target, src_size):
             if target not in self.__class__.file_table:
                 # Create entry for thix file 
-                self.__class__.file_table[target] = []
-            num_block = self.get_num_blocks(src_size)
-            block_table = self.get_blocks_table(target, num_block)     
-            return block_table
+                # self.__class__.file_table[target] = []
+                self.__class__.file_table[target] = None
+            # num_block = self.get_num_blocks(src_size)
+            num_block = 1
+            tpl = self.get_blocks_table(target, num_block)     
+            return tpl
 
         # Return the number of block needed for storing file of size <size>
         def get_num_blocks(self, size):
@@ -60,26 +70,25 @@ class MainServerService(rpyc.Service):
         def exposed_rename_file(self, target, newname):
             self.__class__.file_table[newname] = self.__class__.file_table.pop(target)
 
-
         def exposed_get_block_size(self):
             return self.__class__.block_size
 
         # Assign a number of block with random sub servers
-        # Return the (block id, subserver id) array of current target.
+        # Return the block table(block id, subserver id) array of current target.
         def get_blocks_table(self, target, num_block):
             block_table = []
-            for b in range(num_block):
+            for _ in range(num_block): # For now, just one
                 # get id for each block
                 block_id = uuid.uuid1()
                 # get id for target sub server 
                 #subserver_ids = random.sample(self.__class__.subserver, self.__class__.replication_factor)
-                subserver_ids = (2510, 2511)
+                subserver_id = [random.choice(self.__class__.subserver)]
                 # add (block id, sub server id) as a tuple in <blocks>
-                tpl = (block_id, subserver_ids)
-                block_table.append(tpl)
+                tpl = (block_id, subserver_id)
                 # add tuple to file table
                 # Todo: What is target?
-                self.__class__.file_table[target].append(tpl)
+                block_table.append(tpl)
+                self.__class__.file_table[target] = block_table
             return block_table
 
 
@@ -89,9 +98,9 @@ if __name__ == "__main__":
     s = rpyc.utils.server.ThreadedServer(MainServerService, port=port)
     
     print("IP: localhost")
-    print("Port: ", port)
+    print("Main Server Prt: ", port)
+    print("Sub-server Ports: ", MainServerService.exposed_MainServer.subserver)
     print("starting main server service...")
     s.start()
     # HOST = socket.gethostbyname(socket.gethostname())
-    # print(HOST)
 
