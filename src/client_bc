@@ -18,12 +18,12 @@ import argparse
 # Return:
 #     None
 
-def send_to_subserver(block_id, data, sub_server):
-    # while(len(sub_servers) > 0):
-        # next_server = sub_servers[0]
-        # sub_servers = sub_servers[1:]
-    con_server = rpyc.connect('localhost', sub_server).root.Subserver()
-    con_server.write(block_id, data)
+def send_to_subserver(block_id, data, sub_servers):
+    while(len(sub_servers) > 0):
+        next_server = sub_servers[0]
+        sub_servers = sub_servers[1:]
+        con_server = rpyc.connect('localhost', next_server).root.Subserver()
+        con_server.write(block_id, data)
 
 def read_from_subserver(block_id, sub_server):
     con_server = rpyc.connect('localhost', sub_server).root.Subserver()
@@ -47,17 +47,17 @@ def put(service, source, target):
     # Get file size
     file_size = os.path.getsize(source)
     # Get block id
-    block = service.creat_file_table_entry(target, file_size)
+    blocks = service.creat_file_table_entry(target, file_size)
     # Split data and put into blocks
     with open(source) as fp:
-        # for b in blocks: 
-        data = fp.read()    # For new, read all data
-        block_uuid = block[0]
-        # get sub server object
-        #sub_servers = service.get_sub_server(b[1])
-        sub_servers = block[1]
-        # send to sub server
-        send_to_subserver(block_uuid, data, sub_servers)
+        for b in blocks: 
+            data = fp.read(service.get_block_size())
+            block_uuid = b[0]
+            # get sub server object
+            #sub_servers = service.get_sub_server(b[1])
+            sub_servers = b[1]
+            # send to sub server
+            send_to_subserver(block_uuid, data, sub_servers)
     
 # Funciton: put(service, source, target)
 # Parameters:

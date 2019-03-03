@@ -1,7 +1,11 @@
 import rpyc
 import uuid
 import os
+import configparser
+from time import sleep
+import threading
 
+from MainServer import set_config
 from rpyc.utils.server import ThreadedServer
 
 FILE_DIR = "/tmp/subserver/"
@@ -17,7 +21,7 @@ class SubService(rpyc.Service):
     class exposed_Subserver():
 
         def exposed_write(self, block_id, data):
-            """write data to the block in each subserver"""
+            """write data to the block in subserver"""
             f = open(FILE_DIR + str(block_id), "w")
             f.write(data)
 
@@ -40,11 +44,24 @@ class SubService(rpyc.Service):
 if __name__ == "__main__":
     if not os.path.isdir(FILE_DIR):
         os.mkdir(FILE_DIR)
-        
-    subserver_port = input("Input the port for the Subserver: ")
-    sub  = ThreadedServer(SubService(), port = int(subserver_port))
+    
+    cur_folder = os.path.dirname(os.path.abspath(__file__))
+    cf = os.path.join(cur_folder, 'configure.conf')
+    parser = configparser.ConfigParser()
+    parser.read(cf)
+    subservers = \
+        [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
+    
+    def start_subserver():
+        port = subservers[i]
+        print("Initilizing Subserver", i)
+        print("IP: localhost")
+        print("Port: ", port)
+        sub  = ThreadedServer(SubService(), port=port)
+        sub.start()
 
-    print("IP: localhost")
-    print("Port: ", subserver_port)
-    print("Starting sub server service...")
-    sub.start()
+    for i in range(len(subservers)):
+        print(i)
+        thread = threading.Thread(target=start_subserver)
+        thread.start()
+        sleep(1)
