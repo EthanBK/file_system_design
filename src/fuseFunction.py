@@ -5,12 +5,15 @@ from __future__ import with_statement
 import os
 import sys
 import errno
+import rpyc
 
 from fuse import FUSE, FuseOSError, Operations
 
 class Passthrough(Operations):
     def __init__(self, root):
         self.root = root
+        self.conn = rpyc.connect(host=self.address, port=self.port)
+
 
     # Helpers
     # =======
@@ -95,7 +98,6 @@ class Passthrough(Operations):
     # File methods
     # ============
 
-    self.conn = rpyc.connect(host=self.address, port=self.port)
     
     def open(self, path, flags):
         full_path = self._full_path(path)

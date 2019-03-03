@@ -134,6 +134,7 @@ if __name__ == "__main__":
     con = rpyc.connect("localhost", port = port)
     main_server_service_exposed = con.root.MainServer()
 
+    # FUSE(Passthrough(args.real), args.virtual, foreground=True)
 
     if args.operation == 'put':
         put(main_server_service_exposed, args.source, args.target)
