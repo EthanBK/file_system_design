@@ -9,7 +9,7 @@ from fuseFunction import Passthrough
 
 from threading import Thread
 
-def t(controller):
+def t():
     while(True):
         if(i[0:8] == "shutdown"):
             host = str(i).split('-')[1]
