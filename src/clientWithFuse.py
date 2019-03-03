@@ -9,8 +9,9 @@ from fuseFunction import Passthrough
 
 from threading import Thread
 
-def t(controller):
+def t():
     while(True):
+        i = input("CMD: ")
         if(i[0:8] == "shutdown"):
             host = str(i).split('-')[1]
         elif(i == "q"):
@@ -39,5 +40,5 @@ if __name__ == "__main__":
     k.start()
 
     FUSE(Passthrough(args.real), args.virtual, foreground=True)
-    
+
     k.join()
