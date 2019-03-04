@@ -12,11 +12,7 @@ from fuse import FUSE, FuseOSError, Operations
 class Passthrough(Operations):
     def __init__(self, root):
         self.root = root
-<<<<<<< HEAD
         # self.conn = rpyc.connect(host=self.address, port=self.port)
-=======
-        #self.conn = rpyc.connect(host=self.address, port=self.port)
->>>>>>> 94ffb6de0b13b09a2b38c3888d0b9ec68c32af72
 
 
     # Helpers
