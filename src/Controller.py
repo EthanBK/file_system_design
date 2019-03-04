@@ -1,6 +1,7 @@
 import rpyc
 import os.path
 import random
+import hashlib
 
 from pathlib import Path
 
@@ -14,7 +15,6 @@ class Subserver():
     def get_connection(self):
         self.con = rpyc.connect(host=self.addr, port=self.port)
         return self.con
-
     def close_connection(self):
         self.active = False
         self.con.close()
@@ -31,9 +31,10 @@ class File():
         self.subser = subser
         self.v_path = v_path
         self.dir = str(Path(v_path).parent)
+        self.r_path = self.get_real_Path(v_path)
 
     def get_real_Path(self, v_path):
-        pass
+        return v_path.hashlib.md5(v_path.encode()).hexdigest()
 
 
 class Controller:
@@ -42,7 +43,7 @@ class Controller:
         self.directory = {}    # {dir_name: }
         self.file_table = {}    # {v_path: file_obj}
 
-    def generateSubser(self, host):
+    def generate_subser(self, host):
         addr, port = host
         subser = Subserver(addr, port)
         self.subserver[port] = subser

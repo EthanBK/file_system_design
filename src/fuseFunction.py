@@ -10,37 +10,50 @@ import rpyc
 from fuse import FUSE, FuseOSError, Operations
 
 class FuseOperation(Operations):
-    def __init__(self, root_dir, controller):
-        self.root_dir = root_dir
+    def __init__(self, root, controller):
+        self.root = root        # src_dir/
         self.controller = controller
 
-    def _full_path(self, partial):
-        if partial.startswith("/"):
-            partial = partial[1:]
-        path = os.path.join(self.root_dir, partial)
+    def _full_path(self, path):
+        path = path.lstrip('/')
+        path = os.path.join(self.root, path)
         return path
 
-    '''
-    # Filesystem methods
-    # ==================
+    ####################
+    # Directory Method #
+    ####################
     def access(self, path, mode):
-        full_path = self._full_path(path)
-        if not os.access(full_path, mode):
-            raise FuseOSError(errno.EACCES)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.access(file_entry.r_path, mode)
 
     def chmod(self, path, mode):
-        full_path = self._full_path(path)
-        return os.chmod(full_path, mode)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.chmod(file_entry.r_path, mode)
 
     def chown(self, path, uid, gid):
-        full_path = self._full_path(path)
-        return os.chown(full_path, uid, gid)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.chown(file_entry.r_path, uid, gid)
 
     def getattr(self, path, fh=None):
-        full_path = self._full_path(path)
-        st = os.lstat(full_path)
-        return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
-                     'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        if path in self.controller.directory:
+            full_path = self._full_path(path)
+            st = os.lstat(full_path)
+            return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
+                        'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        else:
+            for port in self.controller.subservers.keys():
+                try:
+                    r_path = self.controller.file_table[path].r_path
+                    return self.controller.get_subserver(port).root.get_connection().root.getattr(r_path, fh)
+                except:
+                    print("Exception 1 in fuseFunction.")
+            full_path = self._full_path(path)
+            st = os.lstat(full_path)
+            return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
+                        'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
 
     def readdir(self, path, fh):
         full_path = self._full_path(path)
@@ -90,42 +103,48 @@ class FuseOperation(Operations):
 
     def utimens(self, path, times=None):
         return os.utime(self._full_path(path), times)
-    '''
 
-    # File methods
-    # ============
+    ###############
+    # File Method #
+    ###############
     
     def open(self, path, flags):
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
-        return subser.get_connection().root.open()
+        return subser.get_connection().root.open(file_entry.r_path, flags)
 
     def create(self, path, mode, fi=None):
-        print("create: ", path, mode)
-        full_path = self._full_path(path)
-        return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.create(file_entry.r_path, mode, fi)
 
     def read(self, path, length, offset, fh):
-        print("read: ", path, length, offset, fh)
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.read(fh, length)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.read(file_entry.r_path, length, offset, fh)
 
     def write(self, path, buf, offset, fh):
-        print("write: ", path, buf, offset, fh)
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.write(fh, buf)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.write(file_entry.r_path, buf, offset, fh)
 
     def truncate(self, path, length, fh=None):
-        full_path = self._full_path(path)
-        with open(full_path, 'r+') as f:
-            f.truncate(length)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.truncate(file_entry.r_path, length, fh)
 
     def flush(self, path, fh):
-        return os.fsync(fh)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.flush(file_entry.r_path, fh)
 
     def release(self, path, fh):
-        return os.close(fh)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.release(file_entry.r_path, fh)
 
     def fsync(self, path, fdatasync, fh):
-        return self.flush(path, fh)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.fsync(file_entry.r_path, fdatasync, fh)
 
