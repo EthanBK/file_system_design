@@ -9,24 +9,20 @@ import rpyc
 
 from fuse import FUSE, FuseOSError, Operations
 
-class Passthrough(Operations):
-    def __init__(self, root):
-        self.root = root
-        # self.conn = rpyc.connect(host=self.address, port=self.port)
-
-
-    # Helpers
-    # =======
+class FuseOperation(Operations):
+    def __init__(self, root_dir, controller):
+        self.root_dir = root_dir
+        self.controller = controller
 
     def _full_path(self, partial):
         if partial.startswith("/"):
             partial = partial[1:]
-        path = os.path.join(self.root, partial)
+        path = os.path.join(self.root_dir, partial)
         return path
 
+    '''
     # Filesystem methods
     # ==================
-
     def access(self, path, mode):
         full_path = self._full_path(path)
         if not os.access(full_path, mode):
@@ -94,15 +90,15 @@ class Passthrough(Operations):
 
     def utimens(self, path, times=None):
         return os.utime(self._full_path(path), times)
+    '''
 
     # File methods
     # ============
-
     
     def open(self, path, flags):
-        print("open: ", path, flags)
-        full_path = self._full_path(path)
-        return os.open(full_path, flags)
+        file_entry = self.controller.file_table[path]
+        subser = self.controller.get_subserver[file_entry.subser.port]
+        return subser.get_connection().root.open()
 
     def create(self, path, mode, fi=None):
         print("create: ", path, mode)

@@ -3,13 +3,11 @@ import sys
 import argparse
 import rpyc
 
-
-from fuse import FUSE
-from fuseFunction import Passthrough
-# from MainServer import 
-
 from threading import Thread
 
+from fuse import FUSE
+from fuseFunction import FuseOperation
+from Controller import Controller
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Distributed file system client")
@@ -30,5 +28,6 @@ if __name__ == "__main__":
     # subserver = main_server_service_exposed.get_subserver_list()
     # print(subserver)
     # k.join()
+    controller = Controller()
 
-    FUSE(Passthrough(args.real), args.virtual, foreground=True)
+    FUSE(FuseOperation(args.real, controller), args.virtual, foreground=True)
