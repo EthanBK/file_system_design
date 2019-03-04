@@ -12,7 +12,7 @@ from fuse import FUSE, FuseOSError, Operations
 class Passthrough(Operations):
     def __init__(self, root):
         self.root = root
-        self.conn = rpyc.connect(host=self.address, port=self.port)
+        # self.conn = rpyc.connect(host=self.address, port=self.port)
 
 
     # Helpers
@@ -100,18 +100,22 @@ class Passthrough(Operations):
 
     
     def open(self, path, flags):
+        print("open")
         full_path = self._full_path(path)
         return os.open(full_path, flags)
 
     def create(self, path, mode, fi=None):
+        print("create")
         full_path = self._full_path(path)
         return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
 
     def read(self, path, length, offset, fh):
+        print("read")
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
 
     def write(self, path, buf, offset, fh):
+        print("write")
         os.lseek(fh, offset, os.SEEK_SET)
         return os.write(fh, buf)
 

@@ -36,9 +36,9 @@ if __name__ == "__main__":
             pass
 
     # todo: advanced function
-    # k = Thread(target = t)
-    # k.start()
+    k = Thread(target = t)
+    k.start()
 
     FUSE(Passthrough(args.real), args.virtual, foreground=True)
 
-    # k.join()
+    k.join()
