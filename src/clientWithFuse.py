@@ -23,12 +23,12 @@ if __name__ == "__main__":
     # k = Thread(target)
     # k.start()
     # Build connection\
-    port = int(args.port)
-    con = rpyc.connect("localhost", port = port)
-    main_server_service_exposed = con.root.MainServer()
+    # port = int(args.port)
+    # con = rpyc.connect("localhost", port = port)
+    # main_server_service_exposed = con.root.MainServer()
 
-    # subserver = main_server_service_exposed
-
-
+    # subserver = main_server_service_exposed.get_subserver_list()
+    # print(subserver)
     # k.join()
-    FUSE(Passthrough(), args.virtual, foreground=True)
+
+    FUSE(Passthrough(args.real), args.virtual, foreground=True)
