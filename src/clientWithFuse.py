@@ -3,14 +3,6 @@ import sys
 import argparse
 import rpyc
 
-<<<<<<< HEAD
-
-from fuse import FUSE
-from fuseFunction import Passthrough
-from MainServer import 
-
-=======
->>>>>>> c6e213d263ff367639865d79d8bc1ce260c2401c
 from threading import Thread
 
 from fuse import FUSE
@@ -26,13 +18,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # todo: advanced function
-<<<<<<< HEAD
-    k = Thread(target = t)
-    k.start()
-
-
-    k.join()
-=======
     # k = Thread(target)
     # k.start()
     # Build connection\
@@ -46,4 +31,3 @@ if __name__ == "__main__":
     controller = Controller()
 
     FUSE(FuseOperation(args.real, controller), args.virtual, foreground=True)
->>>>>>> c6e213d263ff367639865d79d8bc1ce260c2401c
