@@ -6,7 +6,7 @@ import rpyc
 
 from fuse import FUSE
 from fuseFunction import Passthrough
-# from MainServer import 
+from MainServer import 
 
 from threading import Thread
 
@@ -20,15 +20,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # todo: advanced function
-    # k = Thread(target)
-    # k.start()
-    # Build connection\
-    port = int(args.port)
-    con = rpyc.connect("localhost", port = port)
-    main_server_service_exposed = con.root.MainServer()
-
-    # subserver = main_server_service_exposed
+    k = Thread(target = t)
+    k.start()
 
 
-    # k.join()
-    FUSE(Passthrough(), args.virtual, foreground=True)
+    k.join()
