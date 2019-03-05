@@ -11,7 +11,7 @@ from fuse import FUSE, FuseOSError
 
 ROOT_DIR = "/tmp/subserver/"
 
-class SubService(rpyc.Service):
+class SubServerService(rpyc.Service):
 
 
     #def on_connect(self, conn):

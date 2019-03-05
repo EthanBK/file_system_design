@@ -18,5 +18,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     controller = Controller()
+    # Connect main server here
+
 
     FUSE(FuseOperation(args.real, controller), args.virtual, foreground=True)
