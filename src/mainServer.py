@@ -22,7 +22,7 @@ class File(object):
         self.rpath = hashlib.md5(virtualPath.encode()).hexdigest()
 
 
-class MainService(rpyc.Service):
+class MainServerService(rpyc.Service):
     ### move connect node to client? ###
     #class exposed_Node():
     #    def __init__(self, address, port):

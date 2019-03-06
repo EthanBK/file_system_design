@@ -12,13 +12,14 @@ import socket
 from time import sleep
 from rpyc.utils.server import ThreadedServer
 from SubServerService import SubServerService
-from MainServer import MainServerService
+from mainServer import MainServerService
 
 block_size = float('inf')
 relication_factor = 1
 main_server_port = 0
 num_subserver = 0
 subservers  = []
+sub_server_root_dir = []
 
 def set_config():
     cur_folder = os.path.dirname(os.path.abspath(__file__))
@@ -36,12 +37,15 @@ def set_config():
         int(parser.get('subServer', 'num_subserver'))
     subservers = \
         [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
+    sub_server_root_dir = \
+        parser.get('subServer', 'ROOT_DIR')
     
     return [block_size,
             replication_factor,
             main_server_port,
             num_subserver,
-            subservers]
+            subservers,
+            sub_server_root_dir]
 
 def start_subserver(addr, port):
     print(f"Starting subserver {port} on {addr}...\n")
@@ -62,9 +66,10 @@ if __name__ == "__main__":
      replication_factor,
      main_server_port,
      num_subserver,
-     subservers] = set_config()
+     subservers,
+     sub_server_root_dir] = set_config()
 
-    # Start Main server
+    # Start Main server (controller)
     host_name = socket.gethostname()
     host_addr = socket.gethostbyname(host_name)
     thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port))
@@ -72,6 +77,9 @@ if __name__ == "__main__":
     sleep(1)
 
     # Start subserver 
+    # Create root dir for sub server
+    if not os.path.isdir(sub_server_root_dir):
+        os.mkdir(sub_server_root_dir)
     for i in range(len(subservers)):
         port = subservers[i]
         print(f"Starting subserver... ({i+1}/{num_subserver})\n")

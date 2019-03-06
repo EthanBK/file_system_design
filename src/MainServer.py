@@ -7,21 +7,6 @@ import math
 import uuid
 import random
 
-
-def set_config():
-    cur_folder = os.path.dirname(os.path.abspath(__file__))
-    cf = os.path.join(cur_folder, 'configure.conf')
-    parser = configparser.ConfigParser()
-    parser.read(cf)
-    MainServerService.exposed_MainServer.block_size = \
-        int(parser.get('mainServer', 'block_size'))
-    MainServerService.exposed_MainServer.replication_factor = \
-        int(parser.get('mainServer', 'replication_factor'))
-    # print(block_size, replication_factor)
-    MainServerService.exposed_MainServer.subserver = \
-        [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
-
-
 # Main server service
 class MainServerService(rpyc.Service):
     # expose main service to client
@@ -93,17 +78,4 @@ class MainServerService(rpyc.Service):
                 block_table.append(tpl)
                 self.__class__.file_table[target] = block_table
             return block_table
-
-
-if __name__ == "__main__":
-    set_config()
-    port = 2220
-    s = rpyc.utils.server.ThreadedServer(MainServerService, port=port)
-    
-    print("IP: localhost")
-    print("Main Server Prt: ", port)
-    print("Sub-server Ports: ", MainServerService.exposed_MainServer.subserver)
-    print("starting main server service...")
-    s.start()
-    # HOST = socket.gethostbyname(socket.gethostname())
 

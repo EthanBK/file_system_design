@@ -33,7 +33,6 @@ class SubServerService(rpyc.Service):
         path = path.lstrip('/')
         return self.root + path
 
-
     ####################
     # Directory Method #
     ####################
@@ -168,27 +167,9 @@ class SubServerService(rpyc.Service):
     #     return 0
 
 
-if __name__ == "__main__":
-    if not os.path.isdir(ROOT_DIR):
-        os.mkdir(ROOT_DIR)
+# if __name__ == "__main__":
+#     if not os.path.isdir(ROOT_DIR):
+#         os.mkdir(ROOT_DIR)
     
-    cur_folder = os.path.dirname(os.path.abspath(__file__))
-    cf = os.path.join(cur_folder, 'configure.conf')
-    parser = configparser.ConfigParser()
-    parser.read(cf)
-    subservers = \
-        [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
+#     cur_folder = os.path.dirname(os.path.abspath(__file__))
     
-    def start_subserver():
-        port = subservers[i]
-        print("Initilizing Subserver", i)
-        print("IP: localhost")
-        print("Port: ", port)
-        sub  = ThreadedServer(SubService(port), port=port)
-        sub.start()
-
-    for i in range(len(subservers)):
-        print(i)
-        thread = threading.Thread(target=start_subserver)
-        thread.start()
-        sleep(1)

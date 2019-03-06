@@ -39,23 +39,23 @@ class File():
 
 class Controller:
     def __init__(self):
-        self.subserver = {}     # {port: subser_obj}
+        self.subservers = {}     # {port: subser_obj}
         self.directory = {}    # {dir_name: }
         self.file_table = {}    # {v_path: file_obj}
 
     def generate_subser(self, host):
         addr, port = host
         subser = Subserver(addr, port)
-        self.subserver[port] = subser
+        self.subservers[port] = subser
 
     # Get next subserver to write, current only on random basis
     # Future: based on the storage of each subserver
     def get_next_subserver(self):
-        return random.choice(self.subserver.values())
+        return random.choice(self.subservers.values())
 
     def get_subserver(self, port):
-        if port in self.subserver:
-            return self.subserver[port]
+        if port in self.subservers:
+            return self.subservers[port]
         else:
             print("Error: No subserver found in give port!")
             

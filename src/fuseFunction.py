@@ -23,9 +23,10 @@ class FuseOperation(Operations):
     # Directory Method #
     ####################
     def access(self, path, mode):
-        file_entry = self.controller.file_table[path]
-        subser = self.controller.get_subserver[file_entry.subser.port]
-        return subser.get_connection().root.access(file_entry.r_path, mode)
+        if path in self.controller.file_table:
+            file_entry = self.controller.file_table[path]
+            subser = self.controller.get_subserver[file_entry.subser.port]
+            return subser.get_connection().root.access(file_entry.r_path, mode)
 
     def chmod(self, path, mode):
         file_entry = self.controller.file_table[path]
