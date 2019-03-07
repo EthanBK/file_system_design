@@ -16,11 +16,11 @@ class FuseOperation(Operations):
         self.main_service_conn = rpyc.connect(addr_main, port_main).root
 
     def _full_path(self, path):
-         # get subserver for this file (path)
-         # subser_port = self.main_service_conn.find_subserver(path)
-         path = path.lstrip('/')
-         path = os.path.join(self.root, path)
-         return path     # tmp/subserver/2510/test.txt
+        # get subserver for this file (path)
+        # subser_port = self.main_service_conn.find_subserver(path)
+        path = path.lstrip('/')
+        path = os.path.join(self.root, path)
+        return path     # tmp/subserver/2510/test.txt
 
     ####################
     # Directory Method #
