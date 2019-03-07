@@ -51,10 +51,17 @@ class FuseOperation(Operations):
         else:
             for port in self.controller.subservers.keys():
                 try:
+                    print("try 0: path: ", path)
+                    print("file table")
+                    for k, v in self.controller.file_table.items():
+                        print(k, v)
                     r_path = self.controller.file_table[path].r_path
+                    print("try 1: ", r_path)
+
                     return self.controller.get_subserver(port).root.get_connection().root.getattr(r_path, fh)
                 except:
-                    print("Exception 1 in fuseFunction.")
+                    pass
+                    #print("Exception 1 in fuseFunction.")
             full_path = self._full_path(path)
             st = os.lstat(full_path)
             return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
