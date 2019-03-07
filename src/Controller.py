@@ -38,13 +38,15 @@ class File():
 
 
 class Controller:
-    def __init__(self):
+    def __init__(self, subservers):
         self.subservers = {}     # {port: subser_obj}
         self.directory = {}    # {dir_name: }
         self.file_table = {}    # {v_path: file_obj}
+        for subser in subservers:
+            self.generate_subser(subser)
 
-    def generate_subser(self, host):
-        addr, port = host
+    def generate_subser(self, p):
+        addr, port = p
         subser = Subserver(addr, port)
         self.subservers[port] = subser
 
@@ -65,13 +67,13 @@ class Controller:
         else:
             self.directory[dir_name] = Directory(dir_name)
 
-    def get_file_dic(self, v_path: "Virtual Path (path on client side)"):
+    def get_file_dir(self, v_path: "Virtual Path (path on client side)"):
         return str(Path(v_path).parent)
 
     def createFile(self, v_path: "Virtual Path (path on client side)"):
-        file_dic = self.get_file_dic(v_path)
+        file_dir = self.get_file_dir(v_path)
         subser = self.get_next_subserver()
         file_entry = File(v_path, subser)
         self.file_table[v_path] = file_entry
-        self.directory[file_dic].files.append(v_path)
+        self.directory[file_dir].files.append(v_path)
         return file_entry
