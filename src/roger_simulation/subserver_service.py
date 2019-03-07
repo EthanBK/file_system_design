@@ -11,7 +11,7 @@ import shutil
 from pathlib import Path
 from fuse import FUSE, FuseOSError, Operations
 
-FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
+FILE_DIR = "/tmp/subserver/"
 
 
 class subService(rpyc.Service):
