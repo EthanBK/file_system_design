@@ -9,7 +9,7 @@ import rpyc
 
 from fuse import FUSE, FuseOSError, Operations
 
-FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
+#FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
 
 class Passthrough(Operations):
     def __init__(self, port):

@@ -31,6 +31,7 @@ class subService(rpyc.Service):
         return path
 
     def access(self, path, mode):
+        
         full_path = self._full_path(path)
         if not os.access(full_path, mode):
             raise FuseOSError(errno.EACCES)
@@ -43,6 +44,10 @@ class subService(rpyc.Service):
 
     def mkdir(self, path, mode):
         return os.mkdir(self._full_path(path), mode)
+
+    def rmdir(self, path):
+        full_path = self._full_path(path)
+        return os.rmdir(full_path)
 
 
     def getattr(self, path, fh=None):
