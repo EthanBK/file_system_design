@@ -6,20 +6,20 @@ import os
 import sys
 import errno
 import rpyc
-
+from pathlib import Path
 from fuse import FUSE, FuseOSError, Operations
 
 class FuseOperation(Operations):
     def __init__(self, root, addr_main, port_main):
-        self.root = root        # tmp/subserver/
+        self.root = root        # tmp/subserver/2510
         # Access to main server
         self.main_service_conn = rpyc.connect(addr_main, port_main).root
 
     def _full_path(self, path):
         # get subserver for this file (path)
-        subser_port = self.main_service_conn.find_subserver(path)
+        # subser_port = self.main_service_conn.find_subserver(path)
         path = path.lstrip('/')
-        path = os.path.join(self.root + str(subser_port) + '/', path)
+        path = os.path.join(self.root, path)
         return path     # tmp/subserver/2510/test.txt
 
     ####################
@@ -98,7 +98,9 @@ class FuseOperation(Operations):
 
     def statfs(self, path):
         print("FuseFunc->statfs:", path)
+        print('absp:', os.path.abspath(path))
         full_path = self._full_path(path)
+        print("full path: ", full_path)
         stv = os.statvfs(full_path)
         return dict((key, getattr(stv, key)) for key in ('f_bavail', 'f_bfree',
             'f_blocks', 'f_bsize', 'f_favail', 'f_ffree', 'f_files', 'f_flag',

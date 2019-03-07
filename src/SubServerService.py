@@ -9,8 +9,6 @@ import errno
 from rpyc.utils.server import ThreadedServer
 from fuse import FUSE, FuseOSError
 
-ROOT_DIR = "/tmp/subserver/"
-
 class SubServerService(rpyc.Service):
 
 
@@ -19,9 +17,9 @@ class SubServerService(rpyc.Service):
 
     #def on_disconnect(self, conn):
      #   print("subserver disconnected")
-    def __init__(self, port):
+    def __init__(self, port, root):
         self.port = port
-        self.root = ROOT_DIR + str(self.port) + '/'
+        self.root = root
         if not os.path.isdir(self.root):
             os.mkdir(self.root)
         self.active = True
@@ -29,9 +27,9 @@ class SubServerService(rpyc.Service):
     def get_status(self):
         return self.active
 
-    def get_full_path(self, path):
-        path = path.lstrip('/')
-        return self.root + path
+    # def get_full_path(self, path):
+    #     path = path.lstrip('/')
+    #     return self.root + path
 
     ####################
     # Directory Method #
