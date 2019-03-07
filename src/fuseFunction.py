@@ -15,12 +15,12 @@ class FuseOperation(Operations):
         # Access to main server
         self.main_service_conn = rpyc.connect(addr_main, port_main).root
 
-    def _full_path(self, path):
-        # get subserver for this file (path)
-        # subser_port = self.main_service_conn.find_subserver(path)
-        path = path.lstrip('/')
-        path = os.path.join(self.root, path)
-        return path     # tmp/subserver/2510/test.txt
+    # def _full_path(self, path):
+    #     # get subserver for this file (path)
+    #     # subser_port = self.main_service_conn.find_subserver(path)
+    #     path = path.lstrip('/')
+    #     path = os.path.join(self.root, path)
+    #     return path     # tmp/subserver/2510/test.txt
 
     ####################
     # Directory Method #
@@ -94,11 +94,11 @@ class FuseOperation(Operations):
     def mkdir(self, path, mode):
         print("FuseFunc->mkdir:", path)
         self.main_service_conn.create_dictionary(path)
+
         return os.mkdir(self._full_path(path), mode)
 
     def statfs(self, path):
         print("FuseFunc->statfs:", path)
-        print('absp:', os.path.abspath(path))
         full_path = self._full_path(path)
         print("full path: ", full_path)
         stv = os.statvfs(full_path)

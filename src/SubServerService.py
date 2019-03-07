@@ -19,7 +19,8 @@ class SubServerService(rpyc.Service):
      #   print("subserver disconnected")
     def __init__(self, port, root):
         self.port = port
-        self.root = root
+        # tmp/subserver/2510/
+        self.root = root.rstrip('/') + '/' + str(port).strip('/') + '/'     
         if not os.path.isdir(self.root):
             os.mkdir(self.root)
         self.active = True
@@ -27,9 +28,13 @@ class SubServerService(rpyc.Service):
     def get_status(self):
         return self.active
 
-    # def get_full_path(self, path):
-    #     path = path.lstrip('/')
-    #     return self.root + path
+
+    def get_full_path(self, path):
+        # get subserver for this file (path)
+        # subser_port = self.main_service_conn.find_subserver(path)
+        path = path.lstrip('/')
+        path = os.path.join(self.root, path)
+        return path     # tmp/subserver/2510/test.txt
 
     ####################
     # Directory Method #

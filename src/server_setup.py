@@ -54,13 +54,14 @@ def set_config():
 
 def start_subserver(addr, port):
     print(f"Starting subserver {port} on {addr}...\n")
-    subss  = ThreadedServer(SubServerService(port), port=port)
+    subss  = ThreadedServer(SubServerService(port, sub_server_root_dir), 
+                            port=port)
     subss.start()
 
 def start_main_server(addr, port, config_pkg):
     print(f"Starting central server {port} on {addr}...\n")
-    mss = ThreadedServer(MainServerService(config_pkg), port=port, 
-                        protocol_config={ 'allow_public_attrs': True, })
+    mss = ThreadedServer(MainServerService(config_pkg), 
+                        port=port, protocol_config={ 'allow_public_attrs': True, })
     mss.start()
 
 
