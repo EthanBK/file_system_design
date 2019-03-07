@@ -7,7 +7,6 @@ from rpyc.utils.server import ThreadedServer
 from subserver_service import subService
 
 
-#FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
 
 if __name__ == "__main__":
     

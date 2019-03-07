@@ -4,6 +4,7 @@ import random
 import hashlib
 import pickle
 import configparser
+from collections import OrderedDict
 
 from pathlib import Path
 
@@ -29,7 +30,7 @@ class Directory():
 
 class File():
     def __init__(self, v_path, subser):
-        self.subser = subser    # port
+        self.subser = subser    # obj subserver
         self.v_path = v_path
         self.dir = str(Path(v_path).parent)
         self.r_path = self.get_real_Path(v_path)
@@ -49,9 +50,10 @@ class MainServerService(rpyc.Service):
         self.sub_server_root_dir] = config_pkg
 
         # Container Definition
-        self.subservers = {}     # {port: subser_obj}
-        self.directories = {}    # {v_path: Dir_obj}
-        self.file_table = {}    # {v_path: file_obj}
+        # use subservers[0] as fallback server
+        self.subservers = OrderedDict() # {port: subser_obj} 
+        self.directories = {}           # {v_path: Dir_obj}
+        self.file_table = {}            # {v_path: file_obj}
 
         # Build obj for subserver
         for i in range(len(self.subser)):
@@ -116,6 +118,10 @@ class MainServerService(rpyc.Service):
         self.directories[file_dir].files.remove(v_path)
         del self.file_table[v_path]
         print(f"<remove_file>: File {v_path} removed from server.")
+
+    def exposed_get_fallback_subserver(self):
+        # rtype:: Subserver
+        return self.subservers.values()[0]
         
     # Get File record from physical path
     # def getFileFromReal(self, realPath):

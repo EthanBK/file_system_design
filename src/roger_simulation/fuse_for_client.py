@@ -14,7 +14,7 @@ from fuse import FUSE, FuseOSError, Operations
 class Passthrough(Operations):
     def __init__(self, port):
         self.port = port
-        self.subserverRootDir = rpyc.connect('localhost',port).root.getRoot
+        self.subserverRootDir = rpyc.connect('192.168.1.20',port).root.getRoot
 
     # Helpers
     # =======
