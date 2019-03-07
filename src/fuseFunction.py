@@ -57,7 +57,8 @@ class FuseOperation(Operations):
                     r_path = self.main_service_conn.file_table[path].r_path
                     return self.main_service_conn.get_subserver(port).root.get_connection().root.getattr(r_path, fh)
                 except:
-                    print("Exception 1 in fuseFunction.")
+                    pass
+                    #print("Exception 1 in fuseFunction.")
             full_path = self._full_path(path)
             st = os.lstat(full_path)
             return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
