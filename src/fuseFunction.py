@@ -11,7 +11,7 @@ from fuse import FUSE, FuseOSError, Operations
 
 class FuseOperation(Operations):
     def __init__(self, root, controller):
-        self.root = root        # src_dir/
+        self.root = root        # tmp/subserver/2510
         self.controller = controller
 
     def _full_path(self, path):
@@ -23,22 +23,26 @@ class FuseOperation(Operations):
     # Directory Method #
     ####################
     def access(self, path, mode):
+        print("FuseFunc->access:", path)
         if path in self.controller.file_table:
             file_entry = self.controller.file_table[path]
             subser = self.controller.get_subserver[file_entry.subser.port]
             return subser.get_connection().root.access(file_entry.r_path, mode)
 
     def chmod(self, path, mode):
+        print("FuseFunc->chmod:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.chmod(file_entry.r_path, mode)
 
     def chown(self, path, uid, gid):
+        print("FuseFunc->chown:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.chown(file_entry.r_path, uid, gid)
 
     def getattr(self, path, fh=None):
+        print("FuseFunc->getattr:", path)
         if path in self.controller.directory:
             full_path = self._full_path(path)
             st = os.lstat(full_path)
@@ -57,6 +61,7 @@ class FuseOperation(Operations):
                         'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
 
     def readdir(self, path, fh):
+        print("FuseFunc->readdir:", path)
         full_path = self._full_path(path)
 
         dirents = ['.', '..']
@@ -66,6 +71,7 @@ class FuseOperation(Operations):
             yield r
 
     def readlink(self, path):
+        print("FuseFunc->readlink:", path)
         pathname = os.readlink(self._full_path(path))
         if pathname.startswith("/"):
             # Path name is absolute, sanitize it.
@@ -74,16 +80,21 @@ class FuseOperation(Operations):
             return pathname
 
     def mknod(self, path, mode, dev):
+        print("FuseFunc->mknod:", path)
         return os.mknod(self._full_path(path), mode, dev)
 
     def rmdir(self, path):
+        print("FuseFunc->rmdir:", path)
         full_path = self._full_path(path)
         return os.rmdir(full_path)
 
     def mkdir(self, path, mode):
+        print("FuseFunc->mkdir:", path)
+        self.controller.create_dictionary(path)
         return os.mkdir(self._full_path(path), mode)
 
     def statfs(self, path):
+        print("FuseFunc->statfs:", path)
         full_path = self._full_path(path)
         stv = os.statvfs(full_path)
         return dict((key, getattr(stv, key)) for key in ('f_bavail', 'f_bfree',
@@ -91,18 +102,23 @@ class FuseOperation(Operations):
             'f_frsize', 'f_namemax'))
 
     def unlink(self, path):
+        print("FuseFunc->unlink:", path)
         return os.unlink(self._full_path(path))
 
     def symlink(self, name, target):
+        print("FuseFunc->symlink:", name, target)
         return os.symlink(name, self._full_path(target))
 
     def rename(self, old, new):
+        print("FuseFunc->rename:", old, new)
         return os.rename(self._full_path(old), self._full_path(new))
 
     def link(self, target, name):
+        print("FuseFunc->link:", target, name)
         return os.link(self._full_path(target), self._full_path(name))
 
     def utimens(self, path, times=None):
+        print("FuseFunc->utimens:", path)
         return os.utime(self._full_path(path), times)
 
     ###############
@@ -110,41 +126,49 @@ class FuseOperation(Operations):
     ###############
     
     def open(self, path, flags):
+        print("FuseFunc->open:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.open(file_entry.r_path, flags)
 
     def create(self, path, mode, fi=None):
-        file_entry = self.controller.file_table[path]
+        print("FuseFunc->create:", path)
+        file_entry = self.controller.createFile(path)
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.create(file_entry.r_path, mode, fi)
 
     def read(self, path, length, offset, fh):
+        print("FuseFunc->read:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.read(file_entry.r_path, length, offset, fh)
 
     def write(self, path, buf, offset, fh):
+        print("FuseFunc->write:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.write(file_entry.r_path, buf, offset, fh)
 
     def truncate(self, path, length, fh=None):
+        print("FuseFunc->truncate:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.truncate(file_entry.r_path, length, fh)
 
     def flush(self, path, fh):
+        print("FuseFunc->flush:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.flush(file_entry.r_path, fh)
 
     def release(self, path, fh):
+        print("FuseFunc->release:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.release(file_entry.r_path, fh)
 
     def fsync(self, path, fdatasync, fh):
+        print("FuseFunc->fsync:", path)
         file_entry = self.controller.file_table[path]
         subser = self.controller.get_subserver[file_entry.subser.port]
         return subser.get_connection().root.fsync(file_entry.r_path, fdatasync, fh)

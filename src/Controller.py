@@ -74,3 +74,4 @@ class Controller:
         file_entry = File(v_path, subser)
         self.file_table[v_path] = file_entry
         self.directory[file_dic].files.append(v_path)
+        return file_entry
