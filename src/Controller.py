@@ -11,7 +11,6 @@ class Subserver():
         self.port = port
         self.active = False
 
-
     def get_connection(self):
         self.con = rpyc.connect(host=self.addr, port=self.port)
         return self.con
@@ -38,15 +37,13 @@ class File():
 
 
 class Controller:
-    def __init__(self, subservers):
+    def __init__(self):
         self.subservers = {}     # {port: subser_obj}
         self.directory = {}    # {dir_name: }
         self.file_table = {}    # {v_path: file_obj}
-        for subser in subservers:
-            self.generate_subser(subser)
+        self.generate_subser('localhost', 2510)
 
-    def generate_subser(self, p):
-        addr, port = p
+    def generate_subser(self, addr, port):
         subser = Subserver(addr, port)
         self.subservers[port] = subser
 
