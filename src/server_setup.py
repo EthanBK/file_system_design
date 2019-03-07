@@ -12,7 +12,7 @@ import socket
 from time import sleep
 from rpyc.utils.server import ThreadedServer
 from SubServerService import SubServerService
-# from mainServer import MainServerService
+from mainServer import MainServerService
 
 block_size = float('inf')
 relication_factor = 1
@@ -35,16 +35,21 @@ def set_config():
         int(parser.get('mainServer', 'port'))
     num_subserver = \
         int(parser.get('subServer', 'num_subserver'))
-    subservers = \
+    subserver_port = \
         [int(v.strip()) for v in parser.get('subServer', 'port').split(',')]
+    subserver_addr = \
+        [v.strip() for v in parser.get('subServer', 'addr').split(',')]
     sub_server_root_dir = \
         parser.get('subServer', 'ROOT_DIR')
-    
+    # print(subserver_addr)
+    # print(subserver_port)
+    # print(list(zip(subserver_addr, subserver_port)))
+
     return [block_size,
             replication_factor,
             main_server_port,
             num_subserver,
-            subservers,
+            list(zip(subserver_addr, subserver_port)),
             sub_server_root_dir]
 
 def start_subserver(addr, port):
@@ -52,9 +57,9 @@ def start_subserver(addr, port):
     subss  = ThreadedServer(SubServerService(port), port=port)
     subss.start()
 
-def start_main_server(addr, port):
+def start_main_server(addr, port, config_pkg):
     print(f"Starting central server {port} on {addr}...\n")
-    mss = ThreadedServer(MainServerService(subservers), port=port, 
+    mss = ThreadedServer(MainServerService(config_pkg), port=port, 
                         protocol_config={ 'allow_public_attrs': True, })
     mss.start()
 
@@ -62,26 +67,28 @@ def start_main_server(addr, port):
 if __name__ == "__main__":
     
     # Load configuration
+    config_pkg = set_config()
+
     [block_size,
-     replication_factor,
-     main_server_port,
-     num_subserver,
-     subservers,
-     sub_server_root_dir] = set_config()
+    replication_factor,
+    main_server_port,
+    num_subserver,
+    subservers,     # (addr, port) tuple
+    sub_server_root_dir] = config_pkg
 
     host_name = socket.gethostname()
     host_addr = socket.gethostbyname(host_name)
-    # # Start Main server (controller)
-    # thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port))
-    # thread.start()
-    # sleep(1)
+    # Start Main server (controller)
+    thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port, config_pkg))
+    thread.start()
+    sleep(1)
 
     # Start subserver 
     # Create root dir for sub server
     if not os.path.isdir(sub_server_root_dir):
         os.mkdir(sub_server_root_dir)
     for i in range(len(subservers)):
-        port = subservers[i]
+        port = subservers[i][1]
         print(f"Starting subserver... ({i+1}/{num_subserver})\n")
         thread = threading.Thread(target=start_subserver, args=(host_addr, port))
         thread.start()
