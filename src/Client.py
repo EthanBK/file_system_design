@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    controller = Controller()
+    controller = Controller() # Temply hard code 
     # Connect main server here
 
 

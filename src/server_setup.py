@@ -12,7 +12,7 @@ import socket
 from time import sleep
 from rpyc.utils.server import ThreadedServer
 from SubServerService import SubServerService
-from mainServer import MainServerService
+# from mainServer import MainServerService
 
 block_size = float('inf')
 relication_factor = 1
@@ -69,9 +69,9 @@ if __name__ == "__main__":
      subservers,
      sub_server_root_dir] = set_config()
 
+    host_name = socket.gethostname()
+    host_addr = socket.gethostbyname(host_name)
     # # Start Main server (controller)
-    # host_name = socket.gethostname()
-    # host_addr = socket.gethostbyname(host_name)
     # thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port))
     # thread.start()
     # sleep(1)
