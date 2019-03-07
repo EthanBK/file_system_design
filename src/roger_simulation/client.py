@@ -22,4 +22,4 @@ if __name__ == "__main__":
     #-parser.add_argument('--hosts', required=True,nargs='+', help='List of hosts')
 
     args = parser.parse_args()
-    FUSE(Passthrough(args.port), args.virtual, foreground=True, allow_other=True)
+    FUSE(Passthrough(args.port), args.virtual, foreground=True, allow_root=True)
