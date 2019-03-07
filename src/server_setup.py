@@ -54,7 +54,7 @@ def start_subserver(addr, port):
 
 def start_main_server(addr, port):
     print(f"Starting central server {port} on {addr}...\n")
-    mss = ThreadedServer(MainServerService, port=port, 
+    mss = ThreadedServer(MainServerService(subservers), port=port, 
                         protocol_config={ 'allow_public_attrs': True, })
     mss.start()
 
@@ -69,12 +69,12 @@ if __name__ == "__main__":
      subservers,
      sub_server_root_dir] = set_config()
 
-    # Start Main server (controller)
-    host_name = socket.gethostname()
-    host_addr = socket.gethostbyname(host_name)
-    thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port))
-    thread.start()
-    sleep(1)
+    # # Start Main server (controller)
+    # host_name = socket.gethostname()
+    # host_addr = socket.gethostbyname(host_name)
+    # thread = threading.Thread(target=start_main_server, args=(host_addr, main_server_port))
+    # thread.start()
+    # sleep(1)
 
     # Start subserver 
     # Create root dir for sub server
