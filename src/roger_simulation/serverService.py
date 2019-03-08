@@ -7,25 +7,33 @@ import sys
 import errno
 import rpyc
 import shutil
+import random
 
 from pathlib import Path
 from fuse import FUSE, FuseOSError, Operations
 
-FILE_DIR = "/tmp/subserver/"
 
+class serverService(rpyc.Service):
+    def __init__(self, addrList):
+        self.addrList = addrList
 
-class subService(rpyc.Service):
-    def __init__(self):
-        self.root = FILE_DIR
-        #self.subserverRootDir = rpyc.connect('localhost',port)
 
     def _full_path(self, partial):
         partial = partial.lstrip("/")
-        path = os.path.join(self.root, partial)
+
+        #check if the path exists in any server
+        for addr in self.addrList:
+            path = os.path.join(addr, partial)
+            if(os.path.exists(path)):
+                return path
+
+        #if not, we'll need to assign a path from random server
+        path = os.path.join(self.addrList[random.randint(0, len(self.addrList) - 1)], partial)
+
         return path
 
-    def getRoot(self):
-        return self.root
+    # def getRoot(self):
+    #     return self.root
 
     def access(self, path, mode):
         full_path = self._full_path(path)
@@ -45,16 +53,27 @@ class subService(rpyc.Service):
         full_path = self._full_path(path)
         st = os.lstat(full_path)
         return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
-                     'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+                     'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid', 'st_blocks'))
 
     def readdir(self, path, fh):
-        path = str(Path(FILE_DIR))
-        for r in os.listdir(path):
+        dirents = ['.', '..']
+        path = path.lstrip("/")
+        for addr in self.addrList:
+            full_path = os.path.join(addr, path)
+            if os.path.isdir(full_path):
+                dirents.extend(os.listdir(full_path))
+        for r in list(set(dirents)):
             yield r
+
+
+        # path = str(Path(FILE_DIR))
+        # for r in os.listdir(path):
+        #     yield r
 
     def readlink(self, path):
         pathname = os.readlink(self._full_path(path))
         if pathname.startswith("/"):
+            print("=======here is the problem=======")
             return os.path.relpath(pathname, self.root)
         else:
             return pathname
