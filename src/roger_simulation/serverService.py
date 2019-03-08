@@ -9,14 +9,16 @@ import rpyc
 import shutil
 import random
 
-from pathlib import Path
 from fuse import FUSE, FuseOSError, Operations
-
 
 class serverService(rpyc.Service):
     def __init__(self, addrList):
         self.addrList = addrList
 
+
+    ##################
+    # Help functions #
+    ##################
 
     def _full_path(self, partial):
         partial = partial.lstrip("/")
@@ -32,8 +34,10 @@ class serverService(rpyc.Service):
 
         return path
 
-    # def getRoot(self):
-    #     return self.root
+
+    ######################
+    # Filesystem methods #
+    ######################
 
     def access(self, path, mode):
         full_path = self._full_path(path)
@@ -49,7 +53,6 @@ class serverService(rpyc.Service):
         return os.chown(full_path, uid, gid)
 
     def getattr(self, path, fh=None):
-        #print("FileSystem method: getattr\n")
         full_path = self._full_path(path)
         st = os.lstat(full_path)
         return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
@@ -64,11 +67,6 @@ class serverService(rpyc.Service):
                 dirents.extend(os.listdir(full_path))
         for r in list(set(dirents)):
             yield r
-
-
-        # path = str(Path(FILE_DIR))
-        # for r in os.listdir(path):
-        #     yield r
 
     def readlink(self, path):
         pathname = os.readlink(self._full_path(path))
@@ -112,8 +110,10 @@ class serverService(rpyc.Service):
     def utimens(self, path, times=None):
         return os.utime(self._full_path(path), times)
 
-    # File methods
-    # ============
+
+    ################
+    # File methods #
+    ################
 
     def open(self, path, flags):
         print(f"Open: {path}\n")

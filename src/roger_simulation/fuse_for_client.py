@@ -1,20 +1,13 @@
 #!/usr/bin/env python
-
-from __future__ import with_statement
-
-import os
-import sys
-import errno
 import rpyc
 
 from fuse import FUSE, FuseOSError, Operations
-
-#FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
 
 class Passthrough(Operations):
     def __init__(self, port):
         self.port = port
         #self.subserverRootDir = rpyc.connect('localhost',port).root.getRoot
+
 
     ######################
     # Filesystem methods #
