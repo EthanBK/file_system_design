@@ -4,9 +4,10 @@ import rpyc
 from fuse import FUSE, FuseOSError, Operations
 
 class Passthrough(Operations):
-    def __init__(self, port):
+    def __init__(self, port, user_info):
         self.port = port
-        #self.subserverRootDir = rpyc.connect('localhost',port).root.getRoot
+        self.user_info = user_info
+        rpyc.connect('localhost', self.port).root.get_user_info(user_info)
 
 
     ######################
@@ -14,49 +15,49 @@ class Passthrough(Operations):
     ######################
 
     def access(self, path, mode):
-        return rpyc.connect('localhost', self.port).root.access(path,mode)
+        return rpyc.connect('localhost', self.port).root.access(path,mode,self.user_info)
 
     def chmod(self, path, mode):
-        return rpyc.connect('localhost', self.port).root.chmod(path,mode)
+        return rpyc.connect('localhost', self.port).root.chmod(path,mode,self.user_info)
 
     def chown(self, path, uid, gid):
-        return rpyc.connect('localhost', self.port).root.chown(path,uid,gid)
+        return rpyc.connect('localhost', self.port).root.chown(path,uid,gid,self.user_info)
 
     def getattr(self, path, fh=None):
-        return rpyc.connect('localhost', self.port).root.getattr(path,fh)
+        return rpyc.connect('localhost', self.port).root.getattr(path,self.user_info,fh)
 
     def readdir(self, path, fh):
-        return rpyc.connect('localhost', self.port).root.readdir(path,fh)
+        return rpyc.connect('localhost', self.port).root.readdir(path,fh,self.user_info)
 
     def readlink(self, path):
-        return rpyc.connect('localhost', self.port).root.readlink(path)
+        return rpyc.connect('localhost', self.port).root.readlink(path,self.user_info)
 
     def mknod(self, path, mode, dev):
-        return rpyc.connect('localhost', self.port).root.mknod(path,mode,dev)
+        return rpyc.connect('localhost', self.port).root.mknod(path,mode,dev,self.user_info)
 
     def rmdir(self, path):
-        return rpyc.connect('localhost', self.port).root.rmdir(path)
+        return rpyc.connect('localhost', self.port).root.rmdir(path,self.user_info)
 
     def mkdir(self, path, mode):
-        return rpyc.connect('localhost', self.port).root.mkdir(path,mode)
+        return rpyc.connect('localhost', self.port).root.mkdir(path,mode,self.user_info)
 
     def statfs(self, path):
-        return rpyc.connect('localhost', self.port).root.statfs(path)
+        return rpyc.connect('localhost', self.port).root.statfs(path,self.user_info)
 
     def unlink(self, path):
-        return rpyc.connect('localhost', self.port).root.unlink(path)
+        return rpyc.connect('localhost', self.port).root.unlink(path,self.user_info)
 
     def symlink(self, name, target):
-        return rpyc.connect('localhost', self.port).root.symlink(name,target)
+        return rpyc.connect('localhost', self.port).root.symlink(name,target,self.user_info)
 
     def rename(self, old, new):
-        return rpyc.connect('localhost', self.port).root.rename(old,new)
+        return rpyc.connect('localhost', self.port).root.rename(old,new,self.user_info)
 
     def link(self, target, name):
-        return rpyc.connect('localhost', self.port).root.link(target,name)
+        return rpyc.connect('localhost', self.port).root.link(target,name,self.user_info)
 
     def utimens(self, path, times=None):
-        return rpyc.connect('localhost', self.port).root.utimens(path,times)
+        return rpyc.connect('localhost', self.port).root.utimens(path,self.user_info,times)
 
 
     ################
@@ -65,27 +66,27 @@ class Passthrough(Operations):
 
     def open(self, path, flags):
         #full_path = self._full_path(path)
-        return rpyc.connect('localhost', self.port).root.open(path,flags)
+        return rpyc.connect('localhost', self.port).root.open(path,flags,self.user_info)
 
     def create(self, path, mode, fi=None):
         print("path: ", path)
-        return rpyc.connect('localhost', self.port).root.create(path,mode,fi)
+        return rpyc.connect('localhost', self.port).root.create(path,mode,self.user_info,fi)
 
     def read(self, path, length, offset, fh):
-        return rpyc.connect('localhost', self.port).root.read(path,length,offset,fh)
+        return rpyc.connect('localhost', self.port).root.read(path,length,offset,fh,self.user_info)
 
     def write(self, path, buf, offset, fh):
-        return rpyc.connect('localhost', self.port).root.write(path,buf,offset,fh)
+        return rpyc.connect('localhost', self.port).root.write(path,buf,offset,fh,self.user_info)
 
     def truncate(self, path, length, fh=None):
-        return rpyc.connect('localhost', self.port).root.truncate(path,length,fh)
+        return rpyc.connect('localhost', self.port).root.truncate(path,length,self.user_info,fh)
 
     def flush(self, path, fh):
-        return rpyc.connect('localhost', self.port).root.flush(path,fh)
+        return rpyc.connect('localhost', self.port).root.flush(path,fh,self.user_info)
 
     def release(self, path, fh):
-        return rpyc.connect('localhost', self.port).root.release(path,fh)
+        return rpyc.connect('localhost', self.port).root.release(path,fh,self.user_info)
 
     def fsync(self, path, fdatasync, fh):
-        return rpyc.connect('localhost', self.port).root.fsync(path,fdatasync,fh)
+        return rpyc.connect('localhost', self.port).root.fsync(path,fdatasync,fh,self.user_info)
 
