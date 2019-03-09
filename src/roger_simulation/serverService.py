@@ -20,18 +20,26 @@ class serverService(rpyc.Service):
     # Help functions #
     ##################
 
-    def _full_path(self, partial):
+    def _full_path(self, partial, creatingDir = False):
         partial = partial.lstrip("/")
-
         #check if the path exists in any server
         for addr in self.addrList:
             path = os.path.join(addr, partial)
             if(os.path.exists(path)):
                 return path
 
-        #if not, we'll need to assign a path from random server
-        path = os.path.join(self.addrList[random.randint(0, len(self.addrList) - 1)], partial)
+        for addr in self.addrList:
+            path = os.path.join(addr, partial)
+            getDir = os.path.dirname(path)
+            if os.path.exists(getDir) and (addr != getDir + "/"):
+                #print("addr: ", addr, " getDir: ", getDir)
+                return path
 
+
+        #if not, we'll need to assign a path from random server
+        #print("here")
+        path = os.path.join(self.addrList[random.randint(0, len(self.addrList) - 1)], partial)
+        #path = os.path.join(self.addrList[0], partial)
         return path
 
 
@@ -84,6 +92,7 @@ class serverService(rpyc.Service):
         return os.rmdir(full_path)
 
     def mkdir(self, path, mode):
+        #print("cur path: ", path)
         return os.mkdir(self._full_path(path), mode)
 
     def statfs(self, path):
