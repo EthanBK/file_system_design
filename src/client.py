@@ -8,7 +8,7 @@ from fuse_for_client import Passthrough
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Distributed file system client")
     parser.add_argument('-v','--virtual', required=True, help='Virtual mount point')    
-    parser.add_argument('-d','--address', required=True, help='Address for server')
+    parser.add_argument('-d','--address', required=False, default='localhost', help='Address for server')
     parser.add_argument('-p','--port', required=True, help='Port for server endpoint')
 
     args = parser.parse_args()
