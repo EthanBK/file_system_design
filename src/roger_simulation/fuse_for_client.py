@@ -1,32 +1,17 @@
 #!/usr/bin/env python
-
-from __future__ import with_statement
-
-import os
-import sys
-import errno
 import rpyc
 
 from fuse import FUSE, FuseOSError, Operations
 
-#FILE_DIR = "/home/roger/Desktop/ECS251/tbmounted/"
-
 class Passthrough(Operations):
     def __init__(self, port):
         self.port = port
-        self.subserverRootDir = rpyc.connect('localhost',port).root.getRoot
+        #self.subserverRootDir = rpyc.connect('localhost',port).root.getRoot
 
-    # Helpers
-    # =======
 
-    # def _full_path(self, partial):
-    #     if partial.startswith("/"):
-    #         partial = partial[1:]
-    #     path = os.path.join("/home/roger/Desktop/ECS251/tbmounted/", partial)
-    #     return path
-
-    # Filesystem methods
-    # ==================
+    ######################
+    # Filesystem methods #
+    ######################
 
     def access(self, path, mode):
         return rpyc.connect('localhost', self.port).root.access(path,mode)
@@ -73,8 +58,10 @@ class Passthrough(Operations):
     def utimens(self, path, times=None):
         return rpyc.connect('localhost', self.port).root.utimens(path,times)
 
-    # File methods
-    # ============
+
+    ################
+    # File methods #
+    ################
 
     def open(self, path, flags):
         #full_path = self._full_path(path)
