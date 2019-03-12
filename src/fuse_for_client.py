@@ -66,7 +66,6 @@ class Passthrough(Operations):
     ################
 
     def open(self, path, flags):
-        #full_path = self._full_path(path)
         return rpyc.connect(self.addr, self.port).root.open(path,flags,self.user_info)
 
     def create(self, path, mode, fi=None):

@@ -1,0 +1,396 @@
+<title>Vdbench output/localhost-0.stdout.html</title><pre>
+stdout/stderr for slave=localhost-0
+
+23:45:09.943 23:45:09.942 SlaveJvm execution parameter:  '-m localhost'
+23:45:09.943 23:45:09.943 SlaveJvm execution parameter:  '-n localhost-10-190309-23.45.09.743'
+23:45:09.943 23:45:09.943 SlaveJvm execution parameter:  '-l localhost-0'
+23:45:09.943 23:45:09.943 SlaveJvm execution parameter:  '-p 5570'
+23:45:09.943 23:45:09.943 SlaveJvm positional parameter: 'SlaveJvm'
+23:45:10.005 23:45:10.004 successfully connected to master localhost
+23:45:10.005 23:45:10.005 Connection to localhost using port 5570 successful
+23:45:10.128 23:45:10.128 ticks_per_second: 100
+23:45:10.418 23:45:10.418 execute(): ls -l /home/roger/Desktop/ECS251/mp
+23:45:10.498 23:45:10.498 Configuration interpretation took 0.37 seconds
+
+Link to Run Definitions:         <A HREF="#_1143839598">format_for_rd1 For loops: None</A>
+                                 <A HREF="#_250075633">rd1 For loops: None</A>
+
+23:45:10.626 23:45:10.626 File '/var/log/messages' does not exist. Monitoring bypassed
+23:45:10.627 23:45:10.626 File '/var/log/messages.1' does not exist. Monitoring bypassed
+23:45:10.627 23:45:10.626 Beginning of run setup
+23:45:10.627 23:45:10.626 **********************
+23:45:10.627 
+23:45:10.627 
+23:45:10.666 23:45:10.666 Deleting old file structure.
+23:45:10.666 23:45:10.666 Starting initializeFileAnchor for rd=format_for_rd1 For loops: None anchor=fsd1
+23:45:10.680 23:45:10.679 Completed the creation of the directory list for /home/roger/Desktop/ECS251/mp: 1 directories.
+23:45:10.684 23:45:10.684 Generated 10,000 file names; total anchor size: 78.125m (81,920,000)
+23:45:10.689 23:45:10.689 Created new mmap file: /tmp/vdbench.pid6194.fsd1.mmap.0 mmap size: 19.531k
+23:45:10.690 23:45:10.690 Allocating Data Validation map: 20,000 one-byte entries for each 4,096-byte block.
+23:45:10.691 23:45:10.691 Created new DV map: fsd1 size: 81,920,000 bytes; key block size: 4096; entries: 20,000
+23:45:10.692 23:45:10.692 Allocating a new Journal file for fsd=fsd1
+23:45:10.693 23:45:10.693 Creating journal file /home/roger/Downloads/vdbench50407/fsd1.jnl
+23:45:10.694 23:45:10.694 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.jnl
+23:45:10.695 23:45:10.695 Starting JournalThread for key block                0 to           20,000
+23:45:10.798 23:45:10.798 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.map
+23:45:10.799 23:45:10.799 Starting JournalThread for key block                0 to           20,000
+23:45:10.901 23:45:10.901 Writing control file for anchor=/home/roger/Desktop/ECS251/mp at start of run.
+23:45:12.359 23:45:12.358 Completed control file for anchor=/home/roger/Desktop/ECS251/mp at start of run.  dirs: 1/0 files: 10000/0 sizes: 78.125m/0/0/0
+23:45:12.372 23:45:12.372 Completed initializeFileAnchor for fsd1: 1.71
+23:45:12.440 23:45:12.440 Started 8 threads for fwd=format,fsd=fsd1
+23:45:12.440 23:45:12.440 Started 8 FwgThreads for rd=format_for_rd1 For loops: None
+23:45:12.440 23:45:12.440 Waiting for task synchronization
+23:45:12.440 23:45:12.440 task_wait_start_complete: FwgThread OpFormat /home/roger/Desktop/ECS251/mp 1
+23:45:12.641 23:45:12.640 Requesting full garbage collection
+23:45:12.642 23:45:12.642 GcTracker: cum:   1 intv:  1 ms:      13 mss:  0.00% Heap_MB max:   911 curr:   123 used:    21 free:   102 
+23:45:12.688 23:45:12.688 GcTracker: cum:   3 intv:  2 ms:      44 mss:  0.00% Heap_MB max:   911 curr:   156 used:    18 free:   138 
+23:45:12.688 23:45:12.688 task_wait_start_complete() end
+
+<a name="_1143839598"></a><i><b>23:45:13.003 Starting RD=format_for_rd1</b></i>
+
+23:45:13.007 23:45:13.007 task_run_all(): 9 tasks
+23:45:13.633 23:45:13.633 Erasing Data Validation map: fsd1
+23:45:13.648 23:45:13.648 Erasing Data Validation map: fsd1
+23:45:13.662 23:45:13.661 Erasing Data Validation map: fsd1
+23:45:13.667 23:45:13.667 Erasing Data Validation map: fsd1
+23:45:13.688 23:45:13.687 Erasing Data Validation map: fsd1
+23:45:13.694 23:45:13.694 Erasing Data Validation map: fsd1
+23:45:13.706 23:45:13.706 Erasing Data Validation map: fsd1
+23:45:13.718 23:45:13.718 Erasing Data Validation map: fsd1
+23:45:13.719 23:45:13.719 Message to master: anchor=/home/roger/Desktop/ECS251/mp mkdir complete.
+23:45:32.230 23:45:32.230 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 500 of 10,000 files (5.00%)
+23:45:48.384 23:45:48.383 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 900 of 10,000 files (9.00%)
+23:46:04.804 23:46:04.804 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 1,300 of 10,000 files (13.00%)
+23:46:22.702 23:46:22.702 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 1,700 of 10,000 files (17.00%)
+23:46:38.587 23:46:38.587 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 2,100 of 10,000 files (21.00%)
+23:46:54.143 23:46:54.142 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 2,400 of 10,000 files (24.00%)
+23:47:10.962 23:47:10.962 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 2,800 of 10,000 files (28.00%)
+23:47:29.112 23:47:29.112 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 3,200 of 10,000 files (32.00%)
+23:47:45.788 23:47:45.788 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 3,600 of 10,000 files (36.00%)
+23:48:02.975 23:48:02.975 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 4,000 of 10,000 files (40.00%)
+23:48:21.600 23:48:21.599 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 4,400 of 10,000 files (44.00%)
+23:48:37.592 23:48:37.591 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 4,800 of 10,000 files (48.00%)
+23:48:55.282 23:48:55.282 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 5,200 of 10,000 files (52.00%)
+23:49:13.112 23:49:13.109 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 5,600 of 10,000 files (56.00%)
+23:49:30.848 23:49:30.848 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 6,000 of 10,000 files (60.00%)
+23:49:47.125 23:49:47.125 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 6,400 of 10,000 files (64.00%)
+23:50:05.756 23:50:05.756 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 6,800 of 10,000 files (68.00%)
+23:50:22.933 23:50:22.932 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 7,200 of 10,000 files (72.00%)
+23:50:41.639 23:50:41.639 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 7,600 of 10,000 files (76.00%)
+23:51:00.011 23:51:00.011 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 8,000 of 10,000 files (80.00%)
+23:51:17.986 23:51:17.986 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 8,400 of 10,000 files (84.00%)
+23:51:37.429 23:51:37.429 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 8,800 of 10,000 files (88.00%)
+23:51:55.590 23:51:55.590 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 9,200 of 10,000 files (92.00%)
+23:52:13.403 23:52:13.403 Message to master: anchor=/home/roger/Desktop/ECS251/mp: Created 9,600 of 10,000 files (96.00%)
+23:52:30.121 23:52:30.121 Message to master: anchor=/home/roger/Desktop/ECS251/mp create complete.
+23:52:30.123 23:52:30.122 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.jnl
+23:52:30.123 23:52:30.123 Starting JournalThread for key block                0 to           20,000
+23:52:30.224 23:52:30.224 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.map
+23:52:30.224 23:52:30.224 Starting JournalThread for key block                0 to           20,000
+23:52:30.427 23:52:30.426 
+23:52:30.427 23:52:30.427 Miscellaneous statistics:
+23:52:30.427 23:52:30.427 FILE_CREATES        Files created:                               10,000
+23:52:30.427 23:52:30.427 DIRECTORY_CREATES   Directories created:                              1
+23:52:30.435 23:52:30.427 WRITE_OPENS         Files opened for write activity:             10,000
+23:52:30.435 23:52:30.427 DIR_EXISTS          Directory may not exist (yet):                    4
+23:52:30.435 23:52:30.427 FILE_CLOSES         Close requests:                              10,000
+23:52:30.435 23:52:30.427 
+23:52:30.467 23:52:30.467 Data Validation counters: 
+23:52:30.468 23:52:30.467 Key   1: reads:        0 writes:      172 
+23:52:30.468 23:52:30.467 Key   2: reads:        0 writes:      134 
+23:52:30.468 23:52:30.467 Key   3: reads:        0 writes:      163 
+23:52:30.468 23:52:30.467 Key   4: reads:        0 writes:      132 
+23:52:30.468 23:52:30.467 Key   5: reads:        0 writes:      160 
+23:52:30.468 23:52:30.468 Key   6: reads:        0 writes:      174 
+23:52:30.468 23:52:30.468 Key   7: reads:        0 writes:      135 
+23:52:30.468 23:52:30.468 Key   8: reads:        0 writes:      181 
+23:52:30.468 23:52:30.468 Key   9: reads:        0 writes:      147 
+23:52:30.468 23:52:30.468 Key  10: reads:        0 writes:      192 
+23:52:30.468 23:52:30.468 Key  11: reads:        0 writes:      149 
+23:52:30.468 23:52:30.468 Key  12: reads:        0 writes:      171 
+23:52:30.468 23:52:30.468 Key  13: reads:        0 writes:      131 
+23:52:30.468 23:52:30.468 Key  14: reads:        0 writes:      169 
+23:52:30.468 23:52:30.468 Key  15: reads:        0 writes:      144 
+23:52:30.468 23:52:30.468 Key  16: reads:        0 writes:      159 
+23:52:30.468 23:52:30.468 Key  17: reads:        0 writes:      154 
+23:52:30.468 23:52:30.468 Key  18: reads:        0 writes:      157 
+23:52:30.468 23:52:30.468 Key  19: reads:        0 writes:      146 
+23:52:30.468 23:52:30.468 Key  20: reads:        0 writes:      153 
+23:52:30.468 23:52:30.468 Key  21: reads:        0 writes:      158 
+23:52:30.469 23:52:30.469 Key  22: reads:        0 writes:      162 
+23:52:30.469 23:52:30.469 Key  23: reads:        0 writes:      177 
+23:52:30.469 23:52:30.469 Key  24: reads:        0 writes:      158 
+23:52:30.469 23:52:30.469 Key  25: reads:        0 writes:      155 
+23:52:30.469 23:52:30.469 Key  26: reads:        0 writes:      151 
+23:52:30.469 23:52:30.469 Key  27: reads:        0 writes:      159 
+23:52:30.469 23:52:30.469 Key  28: reads:        0 writes:      170 
+23:52:30.469 23:52:30.469 Key  29: reads:        0 writes:      150 
+23:52:30.469 23:52:30.469 Key  30: reads:        0 writes:      123 
+23:52:30.470 23:52:30.470 Key  31: reads:        0 writes:      166 
+23:52:30.470 23:52:30.470 Key  32: reads:        0 writes:      168 
+23:52:30.472 23:52:30.472 Key  33: reads:        0 writes:      161 
+23:52:30.472 23:52:30.472 Key  34: reads:        0 writes:      161 
+23:52:30.472 23:52:30.472 Key  35: reads:        0 writes:      161 
+23:52:30.472 23:52:30.472 Key  36: reads:        0 writes:      168 
+23:52:30.472 23:52:30.472 Key  37: reads:        0 writes:      148 
+23:52:30.473 23:52:30.472 Key  38: reads:        0 writes:      160 
+23:52:30.473 23:52:30.473 Key  39: reads:        0 writes:      167 
+23:52:30.474 23:52:30.474 Key  40: reads:        0 writes:      152 
+23:52:30.475 23:52:30.475 Key  41: reads:        0 writes:      147 
+23:52:30.475 23:52:30.475 Key  42: reads:        0 writes:      148 
+23:52:30.475 23:52:30.475 Key  43: reads:        0 writes:      142 
+23:52:30.475 23:52:30.475 Key  44: reads:        0 writes:      156 
+23:52:30.475 23:52:30.475 Key  45: reads:        0 writes:      153 
+23:52:30.475 23:52:30.475 Key  46: reads:        0 writes:      166 
+23:52:30.475 23:52:30.475 Key  47: reads:        0 writes:      169 
+23:52:30.475 23:52:30.475 Key  48: reads:        0 writes:      172 
+23:52:30.475 23:52:30.475 Key  49: reads:        0 writes:      182 
+23:52:30.475 23:52:30.475 Key  50: reads:        0 writes:      156 
+23:52:30.476 23:52:30.475 Key  51: reads:        0 writes:      166 
+23:52:30.476 23:52:30.476 Key  52: reads:        0 writes:      181 
+23:52:30.476 23:52:30.476 Key  53: reads:        0 writes:      161 
+23:52:30.476 23:52:30.476 Key  54: reads:        0 writes:      173 
+23:52:30.476 23:52:30.476 Key  55: reads:        0 writes:      140 
+23:52:30.476 23:52:30.476 Key  56: reads:        0 writes:      154 
+23:52:30.476 23:52:30.476 Key  57: reads:        0 writes:      149 
+23:52:30.477 23:52:30.477 Key  58: reads:        0 writes:      168 
+23:52:30.477 23:52:30.477 Key  59: reads:        0 writes:      149 
+23:52:30.477 23:52:30.477 Key  60: reads:        0 writes:      160 
+23:52:30.477 23:52:30.477 Key  61: reads:        0 writes:      172 
+23:52:30.477 23:52:30.477 Key  62: reads:        0 writes:      170 
+23:52:30.477 23:52:30.477 Key  63: reads:        0 writes:      185 
+23:52:30.477 23:52:30.477 Key  64: reads:        0 writes:      159 
+23:52:30.477 23:52:30.477 Key  65: reads:        0 writes:      169 
+23:52:30.477 23:52:30.477 Key  66: reads:        0 writes:      158 
+23:52:30.477 23:52:30.477 Key  67: reads:        0 writes:      152 
+23:52:30.477 23:52:30.477 Key  68: reads:        0 writes:      146 
+23:52:30.477 23:52:30.477 Key  69: reads:        0 writes:      131 
+23:52:30.477 23:52:30.477 Key  70: reads:        0 writes:      155 
+23:52:30.477 23:52:30.477 Key  71: reads:        0 writes:      169 
+23:52:30.477 23:52:30.477 Key  72: reads:        0 writes:      143 
+23:52:30.478 23:52:30.477 Key  73: reads:        0 writes:      138 
+23:52:30.478 23:52:30.478 Key  74: reads:        0 writes:      145 
+23:52:30.478 23:52:30.478 Key  75: reads:        0 writes:      150 
+23:52:30.478 23:52:30.478 Key  76: reads:        0 writes:      159 
+23:52:30.478 23:52:30.478 Key  77: reads:        0 writes:      168 
+23:52:30.478 23:52:30.478 Key  78: reads:        0 writes:      151 
+23:52:30.478 23:52:30.478 Key  79: reads:        0 writes:      170 
+23:52:30.478 23:52:30.478 Key  80: reads:        0 writes:      141 
+23:52:30.478 23:52:30.478 Key  81: reads:        0 writes:      138 
+23:52:30.478 23:52:30.478 Key  82: reads:        0 writes:      167 
+23:52:30.478 23:52:30.478 Key  83: reads:        0 writes:      162 
+23:52:30.478 23:52:30.478 Key  84: reads:        0 writes:      183 
+23:52:30.478 23:52:30.478 Key  85: reads:        0 writes:      147 
+23:52:30.478 23:52:30.478 Key  86: reads:        0 writes:      157 
+23:52:30.478 23:52:30.478 Key  87: reads:        0 writes:      141 
+23:52:30.478 23:52:30.478 Key  88: reads:        0 writes:      159 
+23:52:30.478 23:52:30.478 Key  89: reads:        0 writes:      157 
+23:52:30.479 23:52:30.478 Key  90: reads:        0 writes:      157 
+23:52:30.479 23:52:30.479 Key  91: reads:        0 writes:      155 
+23:52:30.479 23:52:30.479 Key  92: reads:        0 writes:      162 
+23:52:30.479 23:52:30.479 Key  93: reads:        0 writes:      150 
+23:52:30.479 23:52:30.479 Key  94: reads:        0 writes:      167 
+23:52:30.479 23:52:30.479 Key  95: reads:        0 writes:      162 
+23:52:30.479 23:52:30.479 Key  96: reads:        0 writes:      165 
+23:52:30.479 23:52:30.479 Key  97: reads:        0 writes:      154 
+23:52:30.479 23:52:30.479 Key  98: reads:        0 writes:      155 
+23:52:30.479 23:52:30.479 Key  99: reads:        0 writes:      158 
+23:52:30.479 23:52:30.479 Key 100: reads:        0 writes:      172 
+23:52:30.480 23:52:30.479 Key 101: reads:        0 writes:      174 
+23:52:30.480 23:52:30.480 Key 102: reads:        0 writes:      154 
+23:52:30.480 23:52:30.480 Key 103: reads:        0 writes:      161 
+23:52:30.480 23:52:30.480 Key 104: reads:        0 writes:      159 
+23:52:30.480 23:52:30.480 Key 105: reads:        0 writes:      151 
+23:52:30.480 23:52:30.480 Key 106: reads:        0 writes:      152 
+23:52:30.480 23:52:30.480 Key 107: reads:        0 writes:      183 
+23:52:30.480 23:52:30.480 Key 108: reads:        0 writes:      147 
+23:52:30.480 23:52:30.480 Key 109: reads:        0 writes:      158 
+23:52:30.480 23:52:30.480 Key 110: reads:        0 writes:      177 
+23:52:30.480 23:52:30.480 Key 111: reads:        0 writes:      154 
+23:52:30.480 23:52:30.480 Key 112: reads:        0 writes:      174 
+23:52:30.480 23:52:30.480 Key 113: reads:        0 writes:      157 
+23:52:30.480 23:52:30.480 Key 114: reads:        0 writes:      155 
+23:52:30.480 23:52:30.480 Key 115: reads:        0 writes:      153 
+23:52:30.480 23:52:30.480 Key 116: reads:        0 writes:      182 
+23:52:30.480 23:52:30.480 Key 117: reads:        0 writes:      127 
+23:52:30.480 23:52:30.480 Key 118: reads:        0 writes:      170 
+23:52:30.481 23:52:30.481 Key 119: reads:        0 writes:      182 
+23:52:30.481 23:52:30.481 Key 120: reads:        0 writes:      150 
+23:52:30.481 23:52:30.481 Key 121: reads:        0 writes:      169 
+23:52:30.481 23:52:30.481 Key 122: reads:        0 writes:      146 
+23:52:30.481 23:52:30.481 Key 123: reads:        0 writes:      151 
+23:52:30.481 23:52:30.481 Key 124: reads:        0 writes:      163 
+23:52:30.481 23:52:30.481 Key 125: reads:        0 writes:      178 
+23:52:30.481 23:52:30.481 Key 126: reads:        0 writes:      184 
+23:52:30.481 23:52:30.481 23:52:30.481 Total amount of key blocks read and validated:        0; key blocks marked in error:    0 
+23:52:30.482 23:52:30.482 Java Heap in MB. max:  910.500; current:  155.500; used:   35.452; free:  120.048
+23:52:30.483 23:52:30.483 Maximum native memory allocation:    2,102,272; Current allocation:    2,098,176
+23:52:31.024 23:52:31.024 Writing control file for anchor=/home/roger/Desktop/ECS251/mp at end of run.
+23:52:33.245 23:52:33.244 Completed control file for anchor=/home/roger/Desktop/ECS251/mp at end of run.  dirs: 1/1 files: 10000/10000 sizes: 78.125m/78.125m/10000/78.125m
+23:52:33.245 23:52:33.244 End of run
+23:52:33.245 23:52:33.245 **********
+23:52:33.245 
+23:52:33.245 
+23:52:33.399 23:52:33.399 Beginning of run setup
+23:52:33.399 23:52:33.399 **********************
+23:52:33.399 
+23:52:33.399 
+23:52:33.429 23:52:33.429 Starting initializeFileAnchor for rd=rd1 For loops: None anchor=fsd1
+23:52:33.429 23:52:33.429 Reading control file for anchor=/home/roger/Desktop/ECS251/mp
+23:52:33.772 23:52:33.771 Completed reading control file.
+23:52:33.772 23:52:33.771 Completed the creation of the directory list for /home/roger/Desktop/ECS251/mp: 1 directories.
+23:52:33.784 23:52:33.783 Generated 10,000 file names; total anchor size: 78.125m (81,920,000)
+23:52:33.784 23:52:33.783 No deletes and creates. Control file not cleared.
+23:52:33.784 23:52:33.783 During anchor creation for anchor=/home/roger/Desktop/ECS251/mp there were 1 directories and 10000 files
+23:52:33.784 23:52:33.784 Completed initializeFileAnchor for fsd1: 0.36
+23:52:33.792 23:52:33.791 Started 16 threads for fwd=fwd1,fsd=fsd1,operation=read
+23:52:33.792 23:52:33.792 Started 16 FwgThreads for rd=rd1 For loops: None
+23:52:33.792 23:52:33.792 Waiting for task synchronization
+23:52:33.792 23:52:33.792 task_wait_start_complete: FwgThread read /home/roger/Desktop/ECS251/mp 1
+23:52:33.993 23:52:33.992 Requesting full garbage collection
+23:52:33.993 23:52:33.993 GcTracker: cum:   5 intv:  0 ms:       0 mss:  0.00% Heap_MB max:   911 curr:   156 used:    39 free:   116 
+23:52:34.060 23:52:34.060 GcTracker: cum:   7 intv:  2 ms:      65 mss:  0.00% Heap_MB max:   911 curr:   156 used:    18 free:   137 
+23:52:34.060 23:52:34.060 task_wait_start_complete() end
+
+<a name="_250075633"></a><i><b>23:52:35.001 Starting RD=rd1; elapsed=5; fwdrate=100; For loops: None</b></i>
+
+23:52:35.002 23:52:35.002 task_run_all(): 17 tasks
+23:52:40.724 23:52:40.724 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.jnl
+23:52:40.725 23:52:40.724 Starting JournalThread for key block                0 to           20,000
+23:52:40.826 23:52:40.825 Writing Data Validation map to /home/roger/Downloads/vdbench50407/fsd1.map
+23:52:40.826 23:52:40.826 Starting JournalThread for key block                0 to           20,000
+23:52:41.027 23:52:41.027 
+23:52:41.027 23:52:41.027 Miscellaneous statistics:
+23:52:41.027 23:52:41.027 READ_OPENS          Files opened for read activity:                 178
+23:52:41.028 23:52:41.027 FILE_CLOSES         Close requests:                                 178
+23:52:41.028 23:52:41.027 
+23:52:41.039 23:52:41.039 Data Validation counters: 
+23:52:41.040 23:52:41.039 Key   1: reads:        3 writes:        0 
+23:52:41.040 23:52:41.040 Key   2: reads:        2 writes:        0 
+23:52:41.040 23:52:41.040 Key   3: reads:        5 writes:        0 
+23:52:41.040 23:52:41.040 Key   4: reads:        4 writes:        0 
+23:52:41.040 23:52:41.040 Key   5: reads:        1 writes:        0 
+23:52:41.040 23:52:41.040 Key   6: reads:        2 writes:        0 
+23:52:41.040 23:52:41.040 Key   7: reads:        3 writes:        0 
+23:52:41.040 23:52:41.040 Key   8: reads:        5 writes:        0 
+23:52:41.040 23:52:41.040 Key   9: reads:        1 writes:        0 
+23:52:41.040 23:52:41.040 Key  10: reads:        2 writes:        0 
+23:52:41.040 23:52:41.040 Key  11: reads:        8 writes:        0 
+23:52:41.040 23:52:41.040 Key  12: reads:        1 writes:        0 
+23:52:41.040 23:52:41.040 Key  14: reads:        3 writes:        0 
+23:52:41.040 23:52:41.040 Key  15: reads:        4 writes:        0 
+23:52:41.040 23:52:41.040 Key  16: reads:        3 writes:        0 
+23:52:41.040 23:52:41.040 Key  17: reads:        2 writes:        0 
+23:52:41.040 23:52:41.040 Key  18: reads:        5 writes:        0 
+23:52:41.040 23:52:41.040 Key  19: reads:        3 writes:        0 
+23:52:41.040 23:52:41.040 Key  20: reads:        2 writes:        0 
+23:52:41.040 23:52:41.040 Key  21: reads:        4 writes:        0 
+23:52:41.040 23:52:41.040 Key  22: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  23: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  24: reads:        4 writes:        0 
+23:52:41.041 23:52:41.041 Key  25: reads:        5 writes:        0 
+23:52:41.041 23:52:41.041 Key  26: reads:        5 writes:        0 
+23:52:41.041 23:52:41.041 Key  27: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  28: reads:        4 writes:        0 
+23:52:41.041 23:52:41.041 Key  29: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  30: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  31: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  32: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  33: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  34: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  35: reads:        3 writes:        0 
+23:52:41.041 23:52:41.041 Key  36: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  37: reads:        3 writes:        0 
+23:52:41.041 23:52:41.041 Key  38: reads:        4 writes:        0 
+23:52:41.041 23:52:41.041 Key  39: reads:        5 writes:        0 
+23:52:41.041 23:52:41.041 Key  41: reads:        2 writes:        0 
+23:52:41.041 23:52:41.041 Key  42: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  43: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  44: reads:        1 writes:        0 
+23:52:41.041 23:52:41.041 Key  45: reads:        5 writes:        0 
+23:52:41.042 23:52:41.041 Key  46: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  47: reads:        5 writes:        0 
+23:52:41.042 23:52:41.042 Key  48: reads:        4 writes:        0 
+23:52:41.042 23:52:41.042 Key  49: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  50: reads:        3 writes:        0 
+23:52:41.042 23:52:41.042 Key  51: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  52: reads:        1 writes:        0 
+23:52:41.042 23:52:41.042 Key  53: reads:        5 writes:        0 
+23:52:41.042 23:52:41.042 Key  54: reads:        5 writes:        0 
+23:52:41.042 23:52:41.042 Key  55: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  57: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  58: reads:        5 writes:        0 
+23:52:41.042 23:52:41.042 Key  59: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  60: reads:        1 writes:        0 
+23:52:41.042 23:52:41.042 Key  61: reads:        1 writes:        0 
+23:52:41.042 23:52:41.042 Key  62: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  63: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  64: reads:        3 writes:        0 
+23:52:41.042 23:52:41.042 Key  65: reads:        1 writes:        0 
+23:52:41.042 23:52:41.042 Key  66: reads:        1 writes:        0 
+23:52:41.042 23:52:41.042 Key  67: reads:        2 writes:        0 
+23:52:41.042 23:52:41.042 Key  68: reads:        3 writes:        0 
+23:52:41.042 23:52:41.042 Key  69: reads:        3 writes:        0 
+23:52:41.043 23:52:41.043 Key  70: reads:        2 writes:        0 
+23:52:41.043 23:52:41.043 Key  71: reads:        1 writes:        0 
+23:52:41.043 23:52:41.043 Key  72: reads:        4 writes:        0 
+23:52:41.043 23:52:41.043 Key  73: reads:        2 writes:        0 
+23:52:41.043 23:52:41.043 Key  74: reads:        2 writes:        0 
+23:52:41.043 23:52:41.043 Key  75: reads:        4 writes:        0 
+23:52:41.043 23:52:41.043 Key  76: reads:        5 writes:        0 
+23:52:41.043 23:52:41.043 Key  77: reads:        5 writes:        0 
+23:52:41.043 23:52:41.043 Key  78: reads:        2 writes:        0 
+23:52:41.043 23:52:41.043 Key  80: reads:        1 writes:        0 
+23:52:41.043 23:52:41.043 Key  81: reads:        3 writes:        0 
+23:52:41.043 23:52:41.043 Key  82: reads:        2 writes:        0 
+23:52:41.044 23:52:41.043 Key  83: reads:        7 writes:        0 
+23:52:41.044 23:52:41.044 Key  84: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key  85: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key  86: reads:        1 writes:        0 
+23:52:41.044 23:52:41.044 Key  87: reads:        5 writes:        0 
+23:52:41.044 23:52:41.044 Key  88: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key  89: reads:        1 writes:        0 
+23:52:41.044 23:52:41.044 Key  90: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key  91: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key  92: reads:        7 writes:        0 
+23:52:41.044 23:52:41.044 Key  93: reads:        1 writes:        0 
+23:52:41.044 23:52:41.044 Key  94: reads:        3 writes:        0 
+23:52:41.044 23:52:41.044 Key  95: reads:        1 writes:        0 
+23:52:41.044 23:52:41.044 Key  96: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key  97: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key  98: reads:        3 writes:        0 
+23:52:41.044 23:52:41.044 Key  99: reads:        1 writes:        0 
+23:52:41.044 23:52:41.044 Key 100: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key 101: reads:        5 writes:        0 
+23:52:41.044 23:52:41.044 Key 103: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key 104: reads:        4 writes:        0 
+23:52:41.044 23:52:41.044 Key 105: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key 106: reads:        2 writes:        0 
+23:52:41.044 23:52:41.044 Key 107: reads:        5 writes:        0 
+23:52:41.045 23:52:41.044 Key 108: reads:        6 writes:        0 
+23:52:41.045 23:52:41.045 Key 109: reads:        9 writes:        0 
+23:52:41.045 23:52:41.045 Key 111: reads:        3 writes:        0 
+23:52:41.045 23:52:41.045 Key 112: reads:        1 writes:        0 
+23:52:41.045 23:52:41.045 Key 113: reads:        6 writes:        0 
+23:52:41.045 23:52:41.045 Key 114: reads:        2 writes:        0 
+23:52:41.045 23:52:41.045 Key 115: reads:        3 writes:        0 
+23:52:41.045 23:52:41.045 Key 116: reads:        3 writes:        0 
+23:52:41.045 23:52:41.045 Key 118: reads:        2 writes:        0 
+23:52:41.045 23:52:41.045 Key 119: reads:        1 writes:        0 
+23:52:41.045 23:52:41.045 Key 120: reads:        6 writes:        0 
+23:52:41.045 23:52:41.045 Key 121: reads:        3 writes:        0 
+23:52:41.045 23:52:41.045 Key 122: reads:        4 writes:        0 
+23:52:41.045 23:52:41.045 Key 123: reads:        2 writes:        0 
+23:52:41.045 23:52:41.045 Key 124: reads:        3 writes:        0 
+23:52:41.045 23:52:41.045 Key 126: reads:        3 writes:        0 
+23:52:41.046 23:52:41.046 23:52:41.045 Total amount of key blocks read and validated:      347; key blocks marked in error:    0 
+23:52:41.046 23:52:41.046 Java Heap in MB. max:  910.500; current:  155.500; used:   25.437; free:  130.063
+23:52:41.046 23:52:41.046 Maximum native memory allocation:    2,163,712; Current allocation:       66,560
+23:52:41.046 23:52:41.046 Writing control file for anchor=/home/roger/Desktop/ECS251/mp at end of run.
+23:52:41.383 23:52:41.383 Completed control file for anchor=/home/roger/Desktop/ECS251/mp at end of run.  dirs: 1/1 files: 10000/10000 sizes: 78.125m/78.125m/178/1.391m
+23:52:41.383 23:52:41.383 End of run
+23:52:41.383 23:52:41.383 **********
+23:52:41.383 
+23:52:41.383 
+23:52:41.621 23:52:41.620 Master is requesting slave shutdown
+23:52:41.621 23:52:41.621 Java Heap in MB. max:  910.500; current:  155.500; used:   26.529; free:  128.971

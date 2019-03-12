@@ -20,7 +20,7 @@ class serverService(rpyc.Service):
         self.userList.append(user_info)
         for addr in self.addrList:
             new_dir = os.path.join(addr, user_info)
-            print("New directory created: ", new_dir)
+            #print("New directory created: ", new_dir)
             if not os.path.exists(new_dir):
                 os.mkdir(new_dir)
 
@@ -64,6 +64,7 @@ class serverService(rpyc.Service):
 
     def access(self, path, mode, user_info):
         full_path = self._full_path(path, user_info)
+        print("access: ", full_path)
         if not os.access(full_path, mode):
             raise FuseOSError(errno.EACCES)
 
@@ -96,7 +97,7 @@ class serverService(rpyc.Service):
         pathname = os.readlink(self._full_path(path, user_info))
         if pathname.startswith("/"):
             print("=======here is the problem=======")
-            return os.path.relpath(pathname, self.get_root(pathname))
+            return os.path.relpath(pathname, self.get_root(pathname, user_info))
         else:
             return pathname
 
@@ -108,7 +109,7 @@ class serverService(rpyc.Service):
         return os.rmdir(full_path)
 
     def mkdir(self, path, mode, user_info):
-        #print("cur path: ", path)
+        print("mkdir full path: ", self._full_path(path, user_info))
         return os.mkdir(self._full_path(path, user_info), mode)
 
     def statfs(self, path, user_info):
@@ -141,22 +142,30 @@ class serverService(rpyc.Service):
     ################
 
     def open(self, path, flags, user_info):
-        print(f"Open: {path}\n")
+        #print(f"Open: {path}\n")
         full_path = self._full_path(path, user_info)
+        #print("open full path: ", full_path)
         return os.open(full_path, flags)
 
     def create(self, path, mode, user_info, fi=None):
-        print(f"Create: {path}\n")
+        #print(f"Create: {path}\n")
         full_path = self._full_path(path, user_info)
+        #print("create full path: ", full_path)
         return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
 
     def read(self, path, length, offset, fh, user_info):
-        print(f"Read: {path}\n")
+        #print(f"Read: {path}\n")
+        #full_path = self._full_path(path, user_info)
+        #print("read full path: ", full_path)
+
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
 
     def write(self, path, buf, offset, fh, user_info):
-        print(f"Write: {path}\n")
+        #print(f"Write: {path}\n")
+        #full_path = self._full_path(path, user_info)
+        #print("write full path: ", full_path)
+
         os.lseek(fh, offset, os.SEEK_SET)
         return os.write(fh, buf)
 

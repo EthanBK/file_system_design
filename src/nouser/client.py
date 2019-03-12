@@ -12,9 +12,8 @@ if __name__ == "__main__":
     parser.add_argument('-p','--port', required=True, help='Port for server endpoint')
 
     args = parser.parse_args()
-    username = input("Username: ")
+    #username = input("Username: ")
     #password = input("Password: ")
     #user_info = username + "_" +password
-    user_info = username
-    FUSE(Passthrough(args.address, args.port, user_info), \
-        args.virtual, foreground=True, allow_other=True)
+    #user_info = username
+    FUSE(Passthrough(args.address, args.port), args.virtual, foreground=True, allow_root=True)

@@ -1,0 +1,149 @@
+<title>Vdbench output/config.html</title><pre>
+Output from script /home/roger/Downloads/vdbench50407/linux/config.sh: 
+
+Sat Mar 9 23:45:10 PST 2019
+>>>>>uname -a
+Linux roger-laptop 4.10.0-38-generic #42~16.04.1-Ubuntu SMP Tue Oct 10 16:32:20 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+Sat Mar 9 23:45:10 PST 2019
+>>>>>ifconfig -a
+docker0   Link encap:Ethernet  HWaddr 02:42:2b:15:88:03  
+          inet addr:172.17.0.1  Bcast:172.17.255.255  Mask:255.255.0.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+enp3s0    Link encap:Ethernet  HWaddr fc:45:96:ee:8e:36  
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:274311 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:274311 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:47430771 (47.4 MB)  TX bytes:47430771 (47.4 MB)
+
+wlp2s0    Link encap:Ethernet  HWaddr 3c:95:09:95:f7:ff  
+          inet addr:10.0.0.59  Bcast:10.0.0.255  Mask:255.255.255.0
+          inet6 addr: 2601:200:c080:2a3d::648f/128 Scope:Global
+          inet6 addr: fe80::95f0:11b7:5249:e3b9/64 Scope:Link
+          inet6 addr: 2601:200:c080:2a3d:ef6b:c028:7db6:42b3/64 Scope:Global
+          inet6 addr: 2601:200:c080:2a3d:8c5a:42e9:d7d2:b3d9/64 Scope:Global
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:196863 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:75370 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:217926898 (217.9 MB)  TX bytes:17556222 (17.5 MB)
+
+Sat Mar 9 23:45:10 PST 2019
+>>>>>id
+uid=1000(roger) gid=1000(roger) groups=1000(roger),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),113(lpadmin),130(sambashare)
+Sat Mar 9 23:45:10 PST 2019
+>>>>>mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=3994916k,nr_inodes=998729,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=803780k,mode=755)
+/dev/sdb3 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+/dev/sdb6 on /usr type ext4 (rw,relatime,data=ordered)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+tmpfs on /sys/fs/cgroup type tmpfs (rw,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpu,cpuacct)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,memory)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids,release_agent=/run/cgmanager/agents/cgm-release-agent.pids)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event,release_agent=/run/cgmanager/agents/cgm-release-agent.perf_event)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_cls,net_prio)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb,release_agent=/run/cgmanager/agents/cgm-release-agent.hugetlb)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,clone_children)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=22,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=14964)
+mqueue on /dev/mqueue type mqueue (rw,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime)
+/dev/sda2 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/sdb5 on /home type ext4 (rw,relatime,data=ordered)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,relatime)
+cgmfs on /run/cgmanager/fs type tmpfs (rw,relatime,size=100k,mode=755)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=803780k,mode=700,uid=1000,gid=1000)
+gvfsd-fuse on /run/user/1000/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000)
+Passthrough on /home/roger/Desktop/ECS251/mp type fuse (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000,allow_other)
+Sat Mar 9 23:45:10 PST 2019
+>>>>>memory
+MemTotal:        8037764 kB
+MemFree:         2177476 kB
+MemAvailable:    4151700 kB
+Buffers:          140096 kB
+Cached:          2126844 kB
+SwapCached:            0 kB
+Active:          3940832 kB
+Inactive:        1399772 kB
+Active(anon):    2984252 kB
+Inactive(anon):   234060 kB
+Active(file):     956580 kB
+Inactive(file):  1165712 kB
+Unevictable:        2488 kB
+Mlocked:            2488 kB
+SwapTotal:      15625212 kB
+SwapFree:       15625212 kB
+Dirty:               548 kB
+Writeback:             0 kB
+AnonPages:       2882040 kB
+Mapped:           699476 kB
+Shmem:            144660 kB
+Slab:             250432 kB
+SReclaimable:     154720 kB
+SUnreclaim:        95712 kB
+KernelStack:       14576 kB
+PageTables:        65540 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    19644092 kB
+Committed_AS:   10508888 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    868352 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      377460 kB
+DirectMap2M:     7876608 kB
+DirectMap1G:           0 kB
+              total        used        free      shared  buff/cache   available
+Mem:        8037764     3343164     2177228      144660     2517372     4151452
+Low:        8037764     5860536     2177228
+High:             0           0           0
+Swap:      15625212           0    15625212
+Sat Mar 9 23:45:10 PST 2019
+>>>>>ps -ef | grep -i vdb
+roger     6165   818  0 23:45 pts/3    00:00:00 /bin/bash ./vdbench -f examples/filesys/create_files -jn
+roger     6167  6165 46 23:45 pts/3    00:00:00 java -client -Xmx512m -Xms64m -cp ./:./classes:./vdbench.jar Vdb.Vdbmain -f examples/filesys/create_files -jn
+roger     6190  6167  0 23:45 pts/3    00:00:00 /bin/bash /home/roger/Downloads/vdbench50407/vdbench SlaveJvm -m localhost -n localhost-10-190309-23.45.09.743 -l localhost-0 -p 5570
+roger     6194  6190 31 23:45 pts/3    00:00:00 java -client -Xmx1024m -Xms128m -cp /home/roger/Downloads/vdbench50407/:/home/roger/Downloads/vdbench50407/classes:/home/roger/Downloads/vdbench50407/vdbench.jar Vdb.SlaveJvm SlaveJvm -m localhost -n localhost-10-190309-23.45.09.743 -l localhost-0 -p 5570
+roger     6272  6167  0 23:45 pts/3    00:00:00 /bin/bash /home/roger/Downloads/vdbench50407/linux/config.sh -o /home/roger/Downloads/vdbench50407/output localhost
+roger     6288  6272  0 23:45 pts/3    00:00:00 grep -i vdb
+
