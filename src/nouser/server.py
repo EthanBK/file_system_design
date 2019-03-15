@@ -4,7 +4,7 @@ from rpyc.utils.server import ThreadedServer
 from serverService import serverService
 
 #FILE_DIR = ["/home/roger/Desktop/ECS251/tbmounted/"]
-FILE_DIR = ["/home/roger/Desktop/ECS251/tbmounted/", "/home/roger/Desktop/ECS251/tbmounted2/", "/home/roger/Desktop/ECS251/tbmounted3/"]
+FILE_DIR = ["/home/zzc558/Documents/tbmounted/", "/home/zzc558/Documents/tbmounted2/", "/home/zzc558/Documents/tbmounted3/"]
 
 
 if __name__ == "__main__":
