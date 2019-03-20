@@ -54,6 +54,7 @@ In a new terminal, run `client.py`:
 
 
 **Parameters**
+
 | Short        | Long           | Description  |
 | ------------ |:--------------:| ------------ |
 | -v      | --virtual | Virtual file system mount point |
