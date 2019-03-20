@@ -97,12 +97,12 @@ File functions:
 
  1. Isolated user environment
  
-Each user has access only to its own directory/file.
+Each user has access only to its own directories/files.
 
 2. Hidden sub server
 
-Sub servers storing files are selected and controlled by the main server and are invisible to users.
+Sub servers are selected and controlled by the main server and are invisible to users.
 
 3. File replication
 
-Each file is replicated certain times (specified by developer) and stored in different sub servers randomly
+Each file is replicated certain times (specified by developer) and stored in different sub servers randomly.
