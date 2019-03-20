@@ -52,6 +52,10 @@ In a new terminal, run `client.py`:
 
 `python3 client.py [-v] [-p]`
 
+Then enter the username (e.g. zzc558):
+
+`Username: zzc558`
+
 
 **Parameters**
 
@@ -78,14 +82,14 @@ duplicate_num =  2
 
 `duplicate_num` specifies the number of replications for each file
 
-## Supported Functions
-Directory functions:
+## Supported Operations
+Directory operations:
  - Create directory
  - Remove directory
  - Copy/paste/move directory
  - Rename directory
  
-File functions:
+File operations:
  - Create fire
  - Write to file
  - Read from file
