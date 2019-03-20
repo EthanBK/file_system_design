@@ -3,11 +3,15 @@
 
 ##  Dependecies
 
--  Python >=3.4
+-   Python >= 3.4
 -   Rpyc package (pip install rpyc)
 -   Fusepy package (pip install fusepy)
+-   OS: ubuntu 16.04
 
 ##  Run SDFS
+Files:
+
+`client.py`, `fuse_for_client.py`, `mainserver.py`, `mainserverService.py`, `subserver.py`, `subserverService.py`
 ### 1. Create Mount Point
 Create an empty directory (e.g. `virtual`) as the mount point under the same directory of `client.py`.
 
@@ -65,8 +69,8 @@ Then enter the username (e.g. zzc558):
 | -p      | --port | Port setting for the main server (e.g. 2220)|
 | -d     | --address | Address setting for the main server (e.g. 'localhost')|
 
-## Change Parameters
-Parameters are located in `mainserverService.py` as shown below:
+## Change Configurations
+Configurations that can be changed are located in `mainserverService.py` as shown below:
 
 ```
 ROOT_DIR =  "/tmp/mainserver/"
